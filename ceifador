@@ -3,7 +3,17 @@
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "Uso: $0 <URL sem http/s>\n\nOpções:\n$0 -h | --help  :: Mostra esse painel de ajuda\n$0 <URL>        :: Ceifar sub-domínios e status code de uma determinada URL"
 elif [[ ! -z "$*" ]]; then
-  
+
+  if [[ -z "$(command -v parallel)" ]]; then
+    echo -e "${AMARELO}parallel não está instalado no seu sistema!"
+    exit 1
+  fi
+
+  if [[ -z "$(command -v curl)" ]]; then
+    echo -e "${AMARELO}curl não está instalado no seu sistema!"
+    exit 1
+  fi
+
   VERDE='\033[32;1m'
   VERMELHO='\033[31;1m'
   AMARELO='\033[33;1m'
