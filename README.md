@@ -19,3 +19,7 @@
 ./ceifador -h | --help   :: Mostrar o painel de ajuda
 ./ceifador <URL>         :: Executador o ceifador em uma determinada URL
 ```
+</br>
+
+### Para fazer:
+> Ele não pega todas as urls do output file pra fazer o scan de status code
