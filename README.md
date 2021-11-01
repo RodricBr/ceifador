@@ -9,12 +9,10 @@
 > git clone https://github.com/rodricbr/ceifador.git
 > cd ceifador/;ls
 > chmod +x ceifador.sh
-
 ## - Uso:
 
 > bash ceifador.sh
 > ./ceifador.sh
-
 ## - Opções:
 
 ```markdown
