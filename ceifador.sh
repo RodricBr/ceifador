@@ -1,8 +1,21 @@
 #!/usr/bin/bash
 
-if [[ -z "$*" ]]; then
-  echo -e "Uso: $0 <URL>"
+if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
+  echo -e "Uso: $0 -h | --help"
+  echo -e "Uso: $0 <URL sem http/s>\n\nOpções: $0 -h | --help\t:: Mostra esse painel de ajuda"
 elif [[ ! -z "$*" ]]; then
+  
+  VERDE='\033[32;1m'
+  VERMELHO='\033[31;1m'
+  AMARELO='\033[33;1m'
+  FIM='\033[m'
+  
+  echo -e "${VERDE}             _ ____          __          ${FIM}"
+  echo -e "${VERDE}  ________  (_) __/___ _____/ /___  _____${FIM}"
+  echo -e "${VERDE} / ___/ _ \/ / /_/ __ `/ __  / __ \/ ___/${FIM}"
+  echo -e "${VERDE}/ /__/  __/ / __/ /_/ / /_/ / /_/ / /${FIM}"
+  echo -e "${VERDE}\___/\___/_/_/  \__,_/\__,_/\____/_/${FIM}"
+  echo -e "${VERMELHO}\nCriado por: RodricBr | github.com/RodricBr${FIM}\n\n"
   
   HORA="$(date +'%d/%m/%y | %T')"
   
@@ -23,9 +36,11 @@ elif [[ ! -z "$*" ]]; then
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
   if [[ -f "url" ]]; then
-    echo -e "Arquivo com subdominios criado!"
+    echo -e "${AMARELO}Arquivo com subdominios criado!${FIM}"
+    exit 0
   else
-    echo -e "Nenhuma informação pode ser obtida!"
+    echo -e "${VERMELHO}Nada foi encontrado nesse domínio!${FIM}"
+    exit 1
   fi
 else
   false
