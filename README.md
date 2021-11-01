@@ -11,8 +11,8 @@
 > chmod +x ceifador.sh </br>
 ## - Uso:
 
-> bash ceifador.sh </br>
-> ./ceifador.sh </br>
+> bash ceifador </br>
+> ./ceifador </br>
 ## - Opções:
 
 ```markdown
