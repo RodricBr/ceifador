@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+# Se os parametros estiverem vazios.. senão, executa o programa
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "Uso: $0 <URL sem http/s>\n\nOpções:\n$0 -h | --help  :: Mostra esse painel de ajuda\n$0 <URL>        :: Ceifar sub-domínios e status code de uma determinada URL"
 elif [[ ! -z "$*" ]]; then
@@ -13,7 +14,8 @@ elif [[ ! -z "$*" ]]; then
     echo -e "${AMARELO}curl não está instalado no seu sistema!"
     exit 1
   fi
-
+  
+  # Variável de cores
   VERDE='\033[32;1m'
   VERMELHO='\033[31;1m'
   AMARELO='\033[33;1m'
@@ -38,6 +40,7 @@ elif [[ ! -z "$*" ]]; then
   ANU=$(curl "https://jldc.me/anubis/subdomains/$1" -s -k | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
   echo -e "\n+--------------- Scan terminado $HORA ---------------+\n" >> url
 
+  # Função para pegar o status code 
   STATUS() {
       url="$1"
       urlstatus=$(curl -o /dev/null -k -s --head --write-out  '%{http_code}' "${url}" --max-time 5 ) &&
