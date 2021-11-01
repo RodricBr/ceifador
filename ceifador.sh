@@ -10,13 +10,6 @@ elif [[ ! -z "$*" ]]; then
   AMARELO='\033[33;1m'
   FIM='\033[m'
   
-  echo -e "${VERDE}             _ ____          __          ${FIM}"
-  echo -e "${VERDE}  ________  (_) __/___ _____/ /___  _____${FIM}"
-  echo -e "${VERDE} / ___/ _ \/ / /_/ __ `/ __  / __ \/ ___/${FIM}"
-  echo -e "${VERDE}/ /__/  __/ / __/ /_/ / /_/ / /_/ / /${FIM}"
-  echo -e "${VERDE}\___/\___/_/_/  \__,_/\__,_/\____/_/${FIM}"
-  echo -e "${VERMELHO}\nCriado por: RodricBr | github.com/RodricBr${FIM}\n\n"
-  
   echo -e "${VERDE}
   ####  ###### # ######   ##   #####   ####  #####  
  #      #      # #       #  #  #    # #    # #    # 
@@ -25,6 +18,7 @@ elif [[ ! -z "$*" ]]; then
  #    # #      # #      #    # #    # #    # #   #  
   ####  ###### # #      #    # #####   ####  #    # 
   ${FIM}"
+  echo -e "${VERMELHO}\nCriado por: RodricBr | github.com/RodricBr${FIM}\n\n"
   
   HORA="$(date +'%d/%m/%y | %T')"
   
