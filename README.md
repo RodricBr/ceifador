@@ -6,13 +6,13 @@
 
 ## - Instalação:
 
-> git clone https://github.com/rodricbr/ceifador.git
-> cd ceifador/;ls
-> chmod +x ceifador.sh
+> git clone https://github.com/rodricbr/ceifador.git </br>
+> cd ceifador/;ls </br>
+> chmod +x ceifador.sh </br>
 ## - Uso:
 
-> bash ceifador.sh
-> ./ceifador.sh
+> bash ceifador.sh </br>
+> ./ceifador.sh </br>
 ## - Opções:
 
 ```markdown
