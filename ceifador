@@ -17,7 +17,7 @@ elif [[ ! -z "$*" ]]; then
  #    #  #       #  #       #    #  #    #  #    #  #   #  
   ####   ######  #  #       #    #  #####    ####   #    # 
   ${FIM}"
-  echo -e "--[ ${VERMELHO}\nCriado por: RodricBr | github.com/RodricBr${FIM} ]--\n\n"
+  echo -e "\n--[ ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ]--\n\n"
   
   HORA="$(date +'%d/%m/%y | %T')"
   
