@@ -17,6 +17,15 @@ elif [[ ! -z "$*" ]]; then
   echo -e "${VERDE}\___/\___/_/_/  \__,_/\__,_/\____/_/${FIM}"
   echo -e "${VERMELHO}\nCriado por: RodricBr | github.com/RodricBr${FIM}\n\n"
   
+  echo -e "${VERDE}
+  ####  ###### # ######   ##   #####   ####  #####  
+ #      #      # #       #  #  #    # #    # #    # 
+  ####  #####  # #####  #    # #    # #    # #    # 
+      # #      # #      ###### #    # #    # #####  
+ #    # #      # #      #    # #    # #    # #   #  
+  ####  ###### # #      #    # #####   ####  #    # 
+  ${FIM}"
+  
   HORA="$(date +'%d/%m/%y | %T')"
   
   touch url
