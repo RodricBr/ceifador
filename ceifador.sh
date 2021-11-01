@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
-  echo -e "Uso: $0 <URL sem http/s>\n\nOpções: $0 -h | --help\t:: Mostra esse painel de ajuda"
+  echo -e "Uso: $0 <URL sem http/s>\n\nOpções: $0 -h | --help:: Mostra esse painel de ajuda\n $0<URL>       :: Ceifar sub-domínios e status code de uma determinada URL"
 elif [[ ! -z "$*" ]]; then
   
   VERDE='\033[32;1m'
