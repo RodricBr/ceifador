@@ -2,10 +2,10 @@
 
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
-  echo -e "Uso: $0 <URL sem http/s>\n\nOpções:"
-  echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n$0 <URL>\n \
-           $0 -u | --uninstall :: Desinstalar o programa\n \
-           $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
+  echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
+  echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n\
+$0 -u | --uninstall :: Desinstalar o programa\n\
+$0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
 "
 # Se o parametro for -u ou --uninstall, executa a função 'uninstall_1'
 elif [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
