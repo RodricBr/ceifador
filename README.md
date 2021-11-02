@@ -7,11 +7,14 @@
 ## - Instalação:
 
 > git clone https://github.com/rodricbr/ceifador.git </br>
+
 > cd ceifador/;ls </br>
+
 > chmod +x ceifador </br>
 ## - Uso:
 
 > bash ceifador </br>
+
 > ./ceifador </br>
 ## - Opções:
 
