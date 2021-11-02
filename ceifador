@@ -31,6 +31,8 @@ elif [[ ! -z "$*" ]]; then
   ${FIM}"
   echo -e "\n${VERDE}    --[${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]--${FIM}\n\n"
   
+  echo -e "URL IP/s:\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
+  
   HORA="$(date +'%d/%m/%y | %T')"
   
   touch url
