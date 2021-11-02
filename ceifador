@@ -4,7 +4,7 @@
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
   echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n\
-$0 -u | --uninstall :: Desinstalar o programa\n\
+$0 -u | --uninstall :: Desinstalar o programa(não implementado)\n\
 $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
 "
 elif [[ ! -z "$*" ]]; then
@@ -24,25 +24,25 @@ elif [[ ! -z "$*" ]]; then
   fi
   
   # Função de desinstalar o programa
-  DIRETORIO=$(pwd)
+  #DIRETORIO=$(pwd)
   
-  uninstall_1(){
-  echo -e "Você deseja desinstalar o programa?\n"
-  read -rp "Sim[y] Não[N]: " resposta_1
-  case "$resposta_1" in
-    Y|y)  echo -e "Desinstalando..." ;
-      sleep 2 ;
-      rm -f $0 && rm -rf "$DIRETORIO" ;
-      exit 0 ;;
-    N|n)  exit 0 ;;
-    '\n') exit 0 ;;
-  esac
-  }
+  #uninstall_1(){
+  #echo -e "Você deseja desinstalar o programa?\n"
+  #read -rp "Sim[y] Não[N]: " resposta_1
+  #case "$resposta_1" in
+  #  Y|y)  echo -e "Desinstalando..." ;
+  #    sleep 2 ;
+  #    rm -f $0 && rm -rf "$DIRETORIO" ;
+  #    exit 0 ;;
+  #  N|n)  exit 0 ;;
+  #  '\n') exit 0 ;;
+  #esac
+  #}
   
-  case $UNINS in
-  "-u"|"--uninstall") uninstall_1 ;
-      exit 0 ;;
-  esac
+  #case $UNINS in
+  #"-u"|"--uninstall") uninstall_1 ;
+  #    exit 0 ;;
+  #esac
   
   # Variável de cores
   VERDE='\033[32;1m'
