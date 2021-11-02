@@ -2,7 +2,13 @@
 
 # Se os parametros estiverem vazios.. senão(com a URL), executa o programa
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
-  echo -e "Uso: $0 <URL sem http/s>\n\nOpções:\n$0 -h | --help  :: Mostra esse painel de ajuda\n$0 <URL>        :: Ceifar sub-domínios e status code de uma determinada URL"
+  echo -e "Uso: $0 <URL sem http/s>\n\nOpções:"
+  echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n$0 <URL> \
+           $0 -u | --uninstall :: Desinstalar o programa \
+           $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
+"
+elif [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
+  uninstall_1
 elif [[ ! -z "$*" ]]; then
 
   # Se o comando parallel não existe, sai com exit status 1 (erro)
@@ -56,6 +62,22 @@ elif [[ ! -z "$*" ]]; then
       echo "URL: $url CODE: $urlstatus"
   }
   export -f STATUS
+
+  # Função de desinstalar o programa
+  DIRETORIO=$(dirname "$0")
+  
+  uninstall_1(){
+  echo -e "Você deseja desinstalar o programa?\n"
+  read -rp "Sim[y] Não[N]: " resposta_1
+  case "$resposta_1" in
+    Y|y)  echo -e "Desinstalando..." ;
+      sleep 2 ;
+      rm -f $0 && rm -rf "$DIRETORIO" ;
+      exit 0 ;;
+    N|n)  exit 0 ;;
+    '\n') exit 0 ;;
+  esac
+  }
 
   # 200 'threads' rodando em paralelo
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
