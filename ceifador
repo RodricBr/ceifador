@@ -7,9 +7,6 @@ if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
 $0 -u | --uninstall :: Desinstalar o programa\n\
 $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
 "
-# Se o parametro for -u ou --uninstall, executa a função 'uninstall_1'
-elif [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
-  uninstall_1
 elif [[ ! -z "$*" ]]; then
 
   # Se o comando parallel não existe, sai com exit status 1 (erro)
@@ -79,6 +76,11 @@ elif [[ ! -z "$*" ]]; then
     '\n') exit 0 ;;
   esac
   }
+  
+  case $UNINS in
+  "-u"|"--uninstall") uninstall_1 ;
+      exit 0 ;;
+  esac
 
   # 200 'threads' rodando em paralelo
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
@@ -97,4 +99,3 @@ elif [[ ! -z "$*" ]]; then
 else
   false
 fi
-#
