@@ -1,17 +1,19 @@
 #!/usr/bin/bash
 
-# Se os parametros estiverem vazios.. senão, executa o programa
+# Se os parametros estiverem vazios.. senão(com a URL), executa o programa
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "Uso: $0 <URL sem http/s>\n\nOpções:\n$0 -h | --help  :: Mostra esse painel de ajuda\n$0 <URL>        :: Ceifar sub-domínios e status code de uma determinada URL"
 elif [[ ! -z "$*" ]]; then
 
+  # Se o comando parallel não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v parallel)" ]]; then
-    echo -e "${AMARELO}parallel não está instalado no seu sistema!"
+    echo -e "${AMARELO}PARALLEL não está instalado no seu sistema!"
     exit 1
   fi
-
+  
+  # Se o comando curl não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v curl)" ]]; then
-    echo -e "${AMARELO}curl não está instalado no seu sistema!"
+    echo -e "${AMARELO}cURL não está instalado no seu sistema!"
     exit 1
   fi
   
@@ -21,6 +23,7 @@ elif [[ ! -z "$*" ]]; then
   AMARELO='\033[33;1m'
   FIM='\033[m'
   
+  # Banner
   echo -e "${VERDE}
   ####   ######  #  ######    ##    #####    ####   #####  
  #    #  #       #  #        #  #   #    #  #    #  #    # 
@@ -31,10 +34,12 @@ elif [[ ! -z "$*" ]]; then
   ${FIM}"
   echo -e "\n${VERDE}    --[${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]--${FIM}\n\n"
   
-  echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
+  # Pegando os IPS do alvo
+  echo -e "${AMARELO} + $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
   
   HORA="$(date +'%d/%m/%y | %T')"
   
+  # Parte da criação do arquivo url e o scan do status code dele
   touch url
   echo -e "\n---[ + ]--- Omnisint:\n" >> url
   OMN=$(curl "https://sonar.omnisint.io/subdomains/$1" -s -k | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
@@ -43,20 +48,25 @@ elif [[ ! -z "$*" ]]; then
   echo -e "\n+--------------- Scan terminado $HORA ---------------+\n" >> url
 
   # Função para pegar o status code 
-  STATUS() {
+  STATUS(){
       url="$1"
       urlstatus=$(curl -o /dev/null -k -s --head --write-out  '%{http_code}' "${url}" --max-time 5 ) &&
       echo "URL: $url CODE: $urlstatus"
   }
   export -f STATUS
 
+  # 200 'threads' rodando em paralelo
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
+  # Contagem de número de linhas do arquivo com os status codes
+  echo -e "${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
+
+  # Se o arquivo url existe, echo. Senão, nada.
   if [[ -f "url" ]]; then
-    echo -e "${AMARELO}Arquivo com subdominios criado!${FIM}"
+    echo -e "\n${AMARELO}Arquivo com subdominios criado!${FIM}"
     exit 0
   else
-    echo -e "${VERMELHO}Nada foi encontrado nesse domínio!${FIM}"
+    echo -e "\n${VERMELHO}Nada foi encontrado nesse domínio!${FIM}"
     exit 1
   fi
 else
