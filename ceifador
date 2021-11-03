@@ -54,6 +54,14 @@ elif [[ ! -z "$*" ]]; then
   AMARELO='\033[33;1m'
   FIM='\033[m'
   
+  # Encerramentos...
+  trap encerr 2
+
+  encerr(){
+    echo -e "\n\n${AMARELO}Processo interrompido\nSaíndo!${FIM}\n"
+    exit 130
+  }
+  
   # Banner
   echo -e "${VERDE}
   ####   ######  #  ######    ##    #####    ####   #####  
