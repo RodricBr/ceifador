@@ -1,6 +1,10 @@
 <h1 align="center">~ Ceifador ~</h1> </br>
 
-![image info](./img.png)
+<p align="center">
+  <img src="./img.png">
+</p>
+
+<!--![image info](./img.png)-->
 
 <h3 align="center">Programa feito para ceifar sub-domínios juntamente com os status codes de uma determinada URL</h3>
 
