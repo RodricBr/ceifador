@@ -4,7 +4,7 @@
   <img border="0" src="./img.png" alt="Credit: https://obloguedasantagonices.blogspot.com/2016/02/a-certeza-de-que-um-dia-morrerei_15.html">
 </p>
 
-<h4 align="center">Programa feito para ceifar(coletar) sub-domínios juntamente com os status codes de uma determinada URL usando Anubis e </h4>
+<h4 align="center">Programa feito para ceifar(coletar) sub-domínios juntamente com os status codes de uma determinada URL usando Anubis e Sonar do Omnisint</h4>
 
 </br>
 
