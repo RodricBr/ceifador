@@ -1,5 +1,30 @@
 #!/usr/bin/bash
 
+if [[ "$1" == "-u" ]] || [[ "$1" == "--uninstall" ]]; then
+  # Função de desinstalar o programa
+  DIRETORIO=$(dirname "$0")
+
+  uninstall_1(){
+  echo -e "Você deseja desinstalar o programa?\n"
+  read -rp "Sim[y] Não[N]: " resposta_1
+  case "$resposta_1" in
+    Y|y)  echo -e "Desinstalando..." ;
+      sleep 2 ;
+      rm -f $0 && rm -rf "$DIRETORIO" ;
+      exit 0 ;;
+    N|n)  exit 0 ;;
+    '\n') exit 0 ;;
+  esac
+  }
+  
+  #case $UNINS in
+  #"-u"|"--uninstall") uninstall_1 ;
+  #    exit 0 ;;
+  #esac
+else
+  echo ""
+fi
+
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
@@ -22,27 +47,6 @@ elif [[ ! -z "$*" ]]; then
     echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install curl"
     exit 1
   fi
-  
-  # Função de desinstalar o programa
-  #DIRETORIO=$(pwd)
-  
-  #uninstall_1(){
-  #echo -e "Você deseja desinstalar o programa?\n"
-  #read -rp "Sim[y] Não[N]: " resposta_1
-  #case "$resposta_1" in
-  #  Y|y)  echo -e "Desinstalando..." ;
-  #    sleep 2 ;
-  #    rm -f $0 && rm -rf "$DIRETORIO" ;
-  #    exit 0 ;;
-  #  N|n)  exit 0 ;;
-  #  '\n') exit 0 ;;
-  #esac
-  #}
-  
-  #case $UNINS in
-  #"-u"|"--uninstall") uninstall_1 ;
-  #    exit 0 ;;
-  #esac
   
   # Variável de cores
   VERDE='\033[32;1m'
