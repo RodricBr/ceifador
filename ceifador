@@ -32,7 +32,7 @@ fi
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
   echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n\
-$0 -u | --uninstall :: Desinstalar o programa(não implementado)\n\
+$0 -u | --uninstall :: Desinstalar o programa (não está funcional!)\n\
 $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
 "
 elif [[ ! -z "$*" ]]; then
