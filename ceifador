@@ -35,7 +35,8 @@ if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
 $0 -u | --uninstall :: Desinstalar o programa (não está funcional!)\n\
 $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
 "
-elif [[ ! -z "$*" ]]; then
+#elif [[ ! -z "$*" ]]; then
+elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Se o comando parallel não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v parallel)" ]]; then
