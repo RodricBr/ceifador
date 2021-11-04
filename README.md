@@ -12,9 +12,8 @@
 
 > git clone https://github.com/rodricbr/ceifador.git </br>
 
-> cd ceifador/;ls </br>
+> cd ceifador/;chmod +x ceifador </br>
 
-> chmod +x ceifador </br>
 ## - Uso:
 
 > bash ceifador </br>
