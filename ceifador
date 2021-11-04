@@ -66,15 +66,17 @@ elif [[ ! -z "$*" ]]; then
   }
   
   # Banner
-  echo -e "${VERDE}
-  ####   ######  #  ######    ##    #####    ####   #####  
- #    #  #       #  #        #  #   #    #  #    #  #    # 
- #       #####   #  #####   #    #  #    #  #    #  #    # 
- #       #       #  #       ######  #    #  #    #  #####  
- #    #  #       #  #       #    #  #    #  #    #  #   #  
-  ####   ######  #  #       #    #  #####    ####   #    # 
-  ${FIM}"
-  echo -e "\n${VERDE}    --[${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]--${FIM}\n\n"
+  echo -e '${VERDE} @@@@@@@  @@@@@@@@  @@@  @@@@@@@@   @@@@@@   @@@@@@@    @@@@@@   @@@@@@@   ${FIM}'
+  echo -e '${VERDE}@@@@@@@@  @@@@@@@@  @@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  ${FIM}'
+  echo -e '${VERDE}!@@       @@!       @@!  @@!       @@!  @@@  @@!  @@@  @@!  @@@  @@!  @@@  ${FIM}'
+  echo -e '${VERDE}!@!       !@!       !@!  !@!       !@!  @!@  !@!  @!@  !@!  @!@  !@!  @!@  ${FIM}'
+  echo -e '${VERDE}!@!       @!!!:!    !!@  @!!!:!    @!@!@!@!  @!@  !@!  @!@  !@!  @!@!!@!   ${FIM}'
+  echo -e '${VERDE}!!!       !!!!!:    !!!  !!!!!:    !!!@!!!!  !@!  !!!  !@!  !!!  !!@!@!    ${FIM}'
+  echo -e '${VERDE}:!!       !!:       !!:  !!:       !!:  !!!  !!:  !!!  !!:  !!!  !!: :!!   ${FIM}'
+  echo -e '${VERDE}:!:       :!:       :!:  :!:       :!:  !:!  :!:  !:!  :!:  !:!  :!:  !:!  ${FIM}'
+  echo -e '${VERDE} ::: :::   :: ::::   ::   ::       ::   :::   :::: ::  ::::: ::  ::   :::  ${FIM}'
+  echo -e '${VERDE} :: :: :  : :: ::   :     :         :   : :  :: :  :    : :  :    :   : :  ${FIM}'
+  echo -e "\n${VERDE}   ~-${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]--${FIM}\n\n"
   
   # Pegando os IPS do alvo
   echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
