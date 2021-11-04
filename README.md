@@ -33,3 +33,5 @@
 ### Para fazer:
 > Ele não pega todas as urls do output file pra fazer o scan de status code, </br>
 > só algumas... mas quais??
+
+<hr>
