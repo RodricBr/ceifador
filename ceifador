@@ -3,9 +3,10 @@
 # Compatíbilidade com utf-8
 export LANG=C.UTF-8
 
+DIRETORIO=$(dirname "$0")
+
 if [[ "$1" == "-u" ]] || [[ "$1" == "--uninstall" ]]; then
   # Função de desinstalar o programa
-  DIRETORIO=$(dirname "$0")
 
   uninstall_1(){
   echo -e "Você deseja desinstalar o programa?\n"
@@ -110,9 +111,11 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # Contagem de número de linhas do arquivo com os status codes
   echo -e "${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
   
-  # Informações que todo mundo já deveria saber
-  echo -e "${AMARELO}+ Arquivo 'resp' --> Status Codes\n+ Arquivo 'url'  --> Todos os Sub-dominios${FIM}"
-
+  # Se o arquivo resp e url existem...
+  if [ -f "$DIRETORIO/resp" ] || [ -f "$DIRETORIO/url" ]; then
+    echo -e "${AMARELO}+ Arquivo 'resp' --> Status Codes\n+ Arquivo 'url'  --> Todos os Sub-dominios${FIM}"
+  fi
+  
   # Se o arquivo url existe, echo. Senão, nada.
   if [[ -f "url" ]]; then
     echo -e "\n${AMARELO}Arquivo com subdominios criado!${FIM}"
