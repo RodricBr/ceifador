@@ -109,6 +109,9 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Contagem de número de linhas do arquivo com os status codes
   echo -e "${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
+  
+  # Informações que todo mundo já deveria saber
+  echo -e "${AMARELO}+ Arquivo 'resp' --> Status Codes\n+ Arquivo 'url'  --> Todos os Sub-dominios${FIM}"
 
   # Se o arquivo url existe, echo. Senão, nada.
   if [[ -f "url" ]]; then
