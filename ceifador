@@ -129,7 +129,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   }
   export -f STATUS
 
-  # 200 'threads' rodando em paralelo
+  # 200 'threads' (rodando em paralelo)
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
   # Contagem de número de linhas do arquivo com os status codes
