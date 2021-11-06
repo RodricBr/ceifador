@@ -63,28 +63,22 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # testes
   banner_(){
 
-    AQUIV="url"
+    WEBHTTP=$(echo "http://$1")
+    WEBHTTPS=$(echo "https://$1")
+    RESULTHTTP=$(echo | curl -s -I $WEBHTTP --connect-timeout 3 | grep -e Server:)
+    RESULTHTTPS=$(echo | curl -s -I $WEBHTTPS --connect-timeout 3 | grep -e Server:)
 
-    while IFS= read -r line; do
+    if [ -z "$RESULTHTTP" ]; then
+      false
+    else
+      echo -e "+ Resposta em HTTP:\n$RESULTHTTP"
+    fi
 
-      WEBHTTP=$(echo "http://$line")
-      WEBHTTPS=$(echo "https://$line")
-      RESULTHTTP=$(echo | curl -s -I $WEBHTTP --connect-timeout 3 | grep -e Server:)
-      RESULTHTTPS=$(echo | curl -s -I $WEBHTTPS --connect-timeout 3 | grep -e Server:)
-
-      if [ -z "$RESULTHTTP" ]; then
-        false
-      else
-        echo -e "+ Resposta em HTTP:\n$RESULTHTTP"
-      fi
-
-      if [ -z "$RESULTHTTPS" ]; then
-        false
-      else
-        echo -e "+ Resposta em HTTPS:\n$RESULTHTTPS"
-      fi
-
-    done < "$AQUIV"
+    if [ -z "$RESULTHTTPS" ]; then
+      false
+    else
+      echo -e "+ Resposta em HTTPS:\n$RESULTHTTPS"
+    fi
   }
   
   ###############################################################################
