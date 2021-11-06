@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+# Em desenvolvimento e com vários bugs...
+
 # Compatíbilidade com utf-8
 export LANG=C.UTF-8
 
