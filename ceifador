@@ -131,7 +131,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
   # Contagem de número de linhas do arquivo com os status codes
-  echo -e "${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
+  echo -e "\n${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
   
   # Se o arquivo resp e url existem...
   if [ -f "$DIRETORIO/resp" ] || [ -f "$DIRETORIO/url" ]; then
