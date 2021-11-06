@@ -84,7 +84,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # Pegando os IPS do alvo
   echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
   
-  # Banner grabbing
+  # Banner grabbing (informações de server)
 
   WEBHTTP=$(echo "http://$1")
   WEBHTTPS=$(echo "https://$1")
@@ -92,15 +92,17 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   RESULTHTTPS=$(echo | curl -s -I $WEBHTTPS --connect-timeout 3 | grep -e Server:)
   
   if [ -z "$RESULTHTTP" ]; then
+    echo -e "${VERMELHO}- Banner não encontrado!${FIM}"
     false
   else
-    echo -e "+ Resposta em HTTP:\n$RESULTHTTP"
+    echo -e "${AMARELO}+ Resposta em HTTP:${FIM}\n$RESULTHTTP"
   fi
 
   if [ -z "$RESULTHTTPS" ]; then
+    echo -e "${VERMELHO}- Banner não encontrado!${FIM}"
     false
   else
-    echo -e "+ Resposta em HTTPS:\n$RESULTHTTPS"
+    echo -e "${AMARELO}+ Resposta em HTTPS:${FIM}\n$RESULTHTTPS"
   fi
   ###############################################################################
   
