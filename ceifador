@@ -109,7 +109,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
   
   # Banner grabbing
-  echo -e "$(banner_)"
+  banner_
   ###############################################################################
   
   HORA="$(date +'%d/%m/%y | %T')"
