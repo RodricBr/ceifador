@@ -31,6 +31,9 @@
 
 ### Para fazer:
 > Ele não pega todas as urls do output file pra fazer o scan de status code, </br>
-> só algumas... mas quais??
+> só algumas... mas quais?? </br>
+> Checar se urls do resp tiveram redirects (302),
+> seguir os redirects usando o -L do curl
+> EX: AA=$(cat resp | awk '{print $3}') | curl -L -k -s "$AA" -v
 
 <hr>
