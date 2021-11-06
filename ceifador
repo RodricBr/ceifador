@@ -92,14 +92,14 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   RESULTHTTPS=$(echo | curl -s -I $WEBHTTPS --connect-timeout 3 | grep -e Server:)
   
   if [ -z "$RESULTHTTP" ]; then
-    echo -e "${VERMELHO}- Banner não encontrado!${FIM}"
+    echo -e "${VERMELHO}- Banner HTTP não encontrado!${FIM}"
     false
   else
     echo -e "${AMARELO}+ Resposta em HTTP:${FIM}\n$RESULTHTTP"
   fi
 
   if [ -z "$RESULTHTTPS" ]; then
-    echo -e "${VERMELHO}- Banner não encontrado!${FIM}"
+    echo -e "${VERMELHO}- Banner HTTPS não encontrado!${FIM}"
     false
   else
     echo -e "${AMARELO}+ Resposta em HTTPS:${FIM}\n$RESULTHTTPS"
