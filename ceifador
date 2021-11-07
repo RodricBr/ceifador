@@ -119,7 +119,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e "\n---[ + ]--- Anubis:\n" >> url
   sleep 1
   ANU=$(curl "https://jldc.me/anubis/subdomains/$1" -s -k | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
-  echo -e "\n+----------------------------------------------------+\n" >> url
+  echo -e "\n+------------------------------------------------------------------+\n" >> url
 
   # Função para pegar o status code 
   STATUS(){
