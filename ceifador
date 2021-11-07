@@ -125,7 +125,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
       url="$1"
       sleep 1
       urlstatus=$(curl -o /dev/null -k -s --head --write-out  '%{http_code}' "${url}" --max-time 5 ) &&
-      echo -e "+ [URL]: $url \t\t[CODE]: $urlstatus"
+      echo -e "[URL]: $url \t\t[CODE]: $urlstatus"
   }
   export -f STATUS
 
