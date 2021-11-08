@@ -155,3 +155,7 @@ fi
 
 # Comandos cURL para burlar redirect e firewalls:
 # proxychains4 curl -s -k -X POST <URL> -v -H "Content-Length:0"
+
+# Flag -d | -dns 
+# seila=$2 ?
+# https://api.hackertarget.com/dnslookup/?q=$seila
