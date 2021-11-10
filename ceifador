@@ -138,7 +138,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   
   # Se o arquivo resp e url existem... + contagem de linhas do resp e url
   if [ -f "$DIRETORIO/resp" ] || [ -f "$DIRETORIO/url" ]; then
-    echo -e "${AMARELO}+ Arquivo 'resp' [$(wc -l resp | awk '{print $1}')] --> Status Codes\n+ Arquivo 'url'  [$(wc -l url | awk '{print $1}')]  --> Todos os Sub-dominios${FIM}"
+    echo -e "${AMARELO}+ Arquivo 'resp' [$(wc -l resp | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'url'  [$(wc -l url | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
   fi
   
   # Se o arquivo url existe, echo. Senão, nada.
