@@ -82,10 +82,10 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   
   # Checando se a conexão com o site está ativa
   if nc -zw1 "$1" 443 >/dev/null 2&>1; then
-    echo -e "${AMARELO} + Conexão :${FIM} ${VERDE}OK${FIM}"
+    echo -e "\n${AMARELO} + Conexão :${FIM} ${VERDE}OK${FIM}\n"
   else
-    echo -e "${AMARELO}+ Conexão:${FIM} ${VERMELHO}OFF${FIM}"
-    echo -e "${VERMELHO}- Sem conexão à internet ou o site!\nSaíndo...${FIM}"
+    echo -e "\n${AMARELO}+ Conexão:${FIM} ${VERMELHO}OFF${FIM}"
+    echo -e "${VERMELHO}- Sem conexão à internet ou o site!\nSaíndo...${FIM}\n"
     exit 1
   fi
   
