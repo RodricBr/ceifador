@@ -82,7 +82,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   
   # Checando se a conexão com o site está ativa
   if nc -zw1 "$1" 443 >/dev/null 2&>1; then
-    echo -e "\n${AMARELO} + Conexão :${FIM} ${VERDE}OK${FIM}\n"
+    echo -e "\n${AMARELO}+ Conexão :${FIM} ${VERDE}OK${FIM}\n"
   else
     echo -e "\n${AMARELO}+ Conexão:${FIM} ${VERMELHO}OFF${FIM}"
     echo -e "${VERMELHO}- Sem conexão à internet ou o site!\nSaíndo...${FIM}\n"
@@ -122,9 +122,11 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e "\n---[ + ]--- Omnisint:\n" >> url
   sleep 1
   OMN=$(curl "https://sonar.omnisint.io/subdomains/$1" -s -k | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
+  # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
   echo -e "\n---[ + ]--- Anubis:\n" >> url
   sleep 1
   ANU=$(curl "https://jldc.me/anubis/subdomains/$1" -s -k | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
+  # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
   echo -e "\n+------------------------------------------------------------------+\n" >> url
 
   # Função para pegar o status code 
