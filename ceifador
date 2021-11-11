@@ -8,7 +8,7 @@ export LANG=C.UTF-8
 DIRETORIO=$(dirname "$0")
 
 if [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
-  read -n 1 -p "SIM OU NÃO? [Y/n]: " RESP;
+  read -n 1 -p "Deseja desinstalar? [Y/n]: " RESP;
 
   [[ "$RESP" != "" ]] && echo "";
 
