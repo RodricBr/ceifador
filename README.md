@@ -12,7 +12,9 @@
 
 > git clone https://github.com/rodricbr/ceifador.git </br>
 
-> cd ceifador/;chmod +x ceifador </br> </br>
+> cd ceifador/;chmod +x ceifador </br>
+
+</br>
 
 > **Para deixar o programa funcional em qualquer parte do sistema:** </br>
 
