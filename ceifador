@@ -7,28 +7,18 @@ export LANG=C.UTF-8
 
 DIRETORIO=$(dirname "$0")
 
-if [[ "$1" == "-u" ]] || [[ "$1" == "--uninstall" ]]; then
-  # Função de desinstalar o programa
+if [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
+  read -n 1 -p "SIM OU NÃO? [Y/n]: " RESP;
 
-  uninstall_1(){
-  echo -e "Você deseja desinstalar o programa?\n"
-  read -rp "Sim[y] Não[N]: " resposta_1
-  case "$resposta_1" in
-    Y|y)  echo -e "Desinstalando..." ;
-      sleep 2 ;
-      rm -f $0 && rm -rf "$DIRETORIO" ;
-      exit 0 ;;
-    N|n)  exit 0 ;;
-    '\n') exit 0 ;;
-  esac
-  }
-  
-  #case $UNINS in
-  #"-u"|"--uninstall") uninstall_1 ;
-  #    exit 0 ;;
-  #esac
-else
-  echo ""
+  [ "$RESP" != "" ] && echo "";
+
+  if [ "$RESP" = "${RESP#[Nn]}" ]; then
+    echo -e "SIM"
+    # Desinstalar...
+  elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
+    echo -e "NAO"
+    # exit 0
+  fi
 fi
 
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
