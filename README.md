@@ -4,8 +4,8 @@
   <img border="0" src="./img.png" alt="Credit: https://obloguedasantagonices.blogspot.com/2016/02/a-certeza-de-que-um-dia-morrerei_15.html">
 </p>
 
-<h4 align="center">Programa feito para ceifar sub-domínios juntamente com os status codes de uma determinada URL usando as APIs: Anubis do JonLuca, e Sonar do Omnisint</h4>
-<h4 align="center">A ideia do programa é para que o pesquisador não tenha contato direto com o servidor, deixando a menor quantidade possível de logs dentro dele.</h4>
+<h4 align="center">Programa feito para ceifar sub-domínios juntamente com os status codes de uma determinada URL usando as APIs: Anubis do JonLuca, e Sonar do Omnisint. A ideia do programa é para que o pesquisador não tenha contato direto com o servidor, deixando a menor quantidade possível de logs dentro dele.</h4>
+
 </br>
 
 ## - Instalação:
