@@ -167,3 +167,5 @@ fi
 # Flag -d | -dns 
 # seila=$2 ?
 # https://api.hackertarget.com/dnslookup/?q=$seila
+
+# Usar uma func com user agents
