@@ -10,7 +10,7 @@ DIRETORIO=$(dirname "$0")
 if [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
   read -n 1 -p "SIM OU NÃO? [Y/n]: " RESP;
 
-  [ "$RESP" != "" ] && echo "";
+  [[ "$RESP" != "" ]] && echo "";
 
   if [ "$RESP" = "${RESP#[Nn]}" ]; then
     echo -e "SIM"
