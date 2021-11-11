@@ -14,6 +14,10 @@
 
 > cd ceifador/;chmod +x ceifador </br>
 
+- Para deixar o programa funcional em qualquer parte do sistema: </br>
+
+> sudo mv ceifador /usr/local/bin </br>
+
 ## - Uso:
 
 > bash ceifador </br>
