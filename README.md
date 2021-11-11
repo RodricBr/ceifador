@@ -28,8 +28,9 @@
 ## - Opções:
 
 ```markdown
-./ceifador -h | --help   :: Mostrar o painel de ajuda
-./ceifador <URL>         :: Executador o ceifador em uma determinada URL
+./ceifador -h | --help      :: Mostrar o painel de ajuda
+./ceifador -u | --uninstall :: Desinstalar o programa ([Não funciona no momento!])
+./ceifador <URL>            :: Executador o ceifador em uma determinada URL
 ```
 </br>
 
