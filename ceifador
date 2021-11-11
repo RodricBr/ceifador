@@ -45,6 +45,23 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     exit 1
   fi
   
+  # Se o comando netcat não existe, sai com exit status 1 (erro)
+  if [[ -z "$(command -v netcat)" ]]; then
+    echo -e "${AMARELO}cURL não está instalado no seu sistema!"
+    echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install curl"
+    exit 1
+  fi
+  
+  # Checando se a conexão com o site está ativa
+  conexao(){
+    if nc -zw1 "$1" 443 >/dev/null 2&>1; then 
+      echo -e " + Conexão : ${VERDE}OK${FIM}"
+    else
+      echo -e " + Conexão: ${VERMELHO}OFF${FIM}"
+      exit 1
+    fi
+  }
+  
   # Variável de cores
   VERDE='\033[32;1m'
   VERMELHO='\033[31;1m'
