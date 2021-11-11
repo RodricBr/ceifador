@@ -93,7 +93,6 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
   
   # Banner grabbing (informações de server)
-
   WEBHTTP=$(echo "http://$1")
   WEBHTTPS=$(echo "https://$1")
   RESULTHTTP=$(echo | curl -s -I $WEBHTTP --connect-timeout 3 | grep -e Server:)
@@ -114,8 +113,10 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   fi
   ###############################################################################
   
+  # Indicando a hora: dia/mês/ano + tempo
   HORA="$(date +'%d/%m/%y | %T')"
   
+  # Randomizando os user agents
   NUMBER=$(( $RANDOM % 9 ))
   AGENTS=(
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.94 Chrome/37.0.2062.94 Safari/537.36"
@@ -196,5 +197,4 @@ fi
 # seila=$2 ?
 # https://api.hackertarget.com/dnslookup/?q=$seila
 
-# Usar uma func com user agents
 # 200 linhas uau
