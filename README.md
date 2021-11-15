@@ -38,7 +38,7 @@
 
 ```markdown
 # É possível que o script não funcione em zsh e outros tipos de shell, ele só foi testado
-em bash versão 4 no sistema operacional Debian 10 buster 64 bits
+# em bash versão 4 no sistema operacional Debian 10 buster 64 bits
 ```
 <hr>
 
