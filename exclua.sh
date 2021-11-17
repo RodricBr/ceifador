@@ -41,6 +41,12 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     exit 1
   fi
 
+  # Se o programa anew não existe, sai com exit status 1 (erro)
+  if [[ -z "$(command -v anew)" ]]; then
+    echo -e "${AMARELO}anew não está instalado no seu sistema!"
+    exit 1
+  fi
+
   # Se o comando curl não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v curl)" ]]; then
     echo -e "${AMARELO}cURL não está instalado no seu sistema!"
@@ -84,7 +90,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e "\n${VERDE}\t\t  ~-[${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]-~${FIM}\n\n"
 
   # Checando se a conexão com o site está ativa
-  if nc -zw1 "$1" 443 >/dev/null 2&>1; then
+  if nc -zw1 "$1" 443 2>/dev/null ; then
     echo -e "\n${AMARELO}+ Conexão :${FIM} ${VERDE}OK${FIM}\n"
   else
     echo -e "\n${AMARELO}+ Conexão:${FIM} ${VERMELHO}OFF${FIM}"
@@ -150,27 +156,29 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   touch url
   #echo -e "\n---[ + ]--- Omnisint:\n" >> url
   sleep 1
-  OMN=$(curl -iL -A "$USER_AGENT" "https://sonar.omnisint.io/subdomains/$1" -s -k -H \
-  "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
-  # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
-  #echo -e "\n---[ + ]--- Anubis:\n" >> url
-  sleep 1
-  ANU=$(curl -iL -A "$USER_AGENT" "https://jldc.me/anubis/subdomains/$1" -s -k -H \
-  "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
-  # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
-  echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
+  while IFS= read -r line; do
+    OMN=$(curl -iL -A "$USER_AGENT" "https://sonar.omnisint.io/subdomains/$line" -s -k -H \
+    "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
+    # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
+    #echo -e "\n---[ + ]--- Anubis:\n" >> url
+    sleep 1
+    ANU=$(curl -iL -A "$USER_AGENT" "https://jldc.me/anubis/subdomains/$line" -s -k -H \
+    "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
+    # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
+    #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
 
-  # Função para pegar o status code
-  STATUS(){
-      ARQUIVO="url"
-      sleep 1
-      urlstatus=$(cat "$ARQUIVO" | httpx -status-code | sed '12d' ) &&
-  }
-  #export -f STATUS
+    # Função para pegar o status code
+    STATUS(){
+        URL="$1"
+        sleep 1
+        urlstatus=$(curl -o /dev/null -k -s --head --write-out  '%{http_code}' "${url}" --max-time 5 -L ) &&
+        echo -e "[URL]: $url \t\t[CODE]: $urlstatus" | anew
+    }
+    export -f STATUS
 
-  # 200 'threads' (rodando em paralelo)
-  #parallel -j200 STATUS :::: url >> resp 2>/dev/null
-
+    # 200 'threads' (rodando em paralelo)
+    parallel -j200 STATUS :::: url >> resp 2>/dev/null
+  done < "$URL"
   # Contagem de número de linhas do arquivo com os status codes
   #echo -e "\n${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
 
