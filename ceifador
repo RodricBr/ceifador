@@ -40,27 +40,33 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install parallel"
     exit 1
   fi
-  
+
+  # Se o programa anew não existe, sai com exit status 1 (erro)
+  if [[ -z "$(command -v anew)" ]]; then
+    echo -e "${AMARELO}anew não está instalado no seu sistema!"
+    exit 1
+  fi
+
   # Se o comando curl não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v curl)" ]]; then
     echo -e "${AMARELO}cURL não está instalado no seu sistema!"
     echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install curl"
     exit 1
   fi
-  
+
   # Se o comando netcat não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v netcat)" ]]; then
     echo -e "${AMARELO}cURL não está instalado no seu sistema!"
     echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install curl"
     exit 1
   fi
-  
+
   # Variável de cores
   VERDE='\033[32;1m'
   VERMELHO='\033[31;1m'
   AMARELO='\033[33;1m'
   FIM='\033[m'
-  
+
   # Encerramentos...
   trap encerr 2
 
@@ -68,7 +74,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "\n\n${AMARELO}Processo interrompido\nSaíndo!${FIM}\n"
     exit 130
   }
-  
+
   # Banner
   echo -e "\n"
   echo -e ${VERDE}'\t @@@@@@@  @@@@@@@@  @@@  @@@@@@@@   @@@@@@   @@@@@@@    @@@@@@   @@@@@@@   '${FIM}
@@ -82,7 +88,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e ${VERDE}'\t ::: :::   :: ::::   ::   ::       ::   :::   :::: ::  ::::: ::  ::   :::  '${FIM}
   echo -e ${VERDE}'\t :: :: :  : :: ::   :     :         :   : :  :: :  :    : :  :    :   : :  '${FIM}
   echo -e "\n${VERDE}\t\t  ~-[${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]-~${FIM}\n\n"
-  
+
   # Checando se a conexão com o site está ativa
   if nc -zw1 "$1" 443 2>/dev/null ; then
     echo -e "\n${AMARELO}+ Conexão :${FIM} ${VERDE}OK${FIM}\n"
@@ -91,16 +97,16 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "${VERMELHO}- Sem conexão à internet ou o site!\nSaíndo...${FIM}\n"
     exit 1
   fi
-  
+
   # Pegando os IPS do alvo (ipv4 e ipv6)
   echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
-  
+
   # Banner grabbing (informações de server)
   WEBHTTP=$(echo "http://$1")
   WEBHTTPS=$(echo "https://$1")
   RESULTHTTP=$(echo | curl -s -I $WEBHTTP --connect-timeout 3 | grep -e Server:)
   RESULTHTTPS=$(echo | curl -s -I $WEBHTTPS --connect-timeout 3 | grep -e Server:)
-  
+
   if [ -z "$RESULTHTTP" ]; then
     echo -e "${VERMELHO}- Banner HTTP não encontrado!${FIM}"
     false
@@ -115,10 +121,10 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "${AMARELO}+ Resposta em HTTPS:${FIM}\n$RESULTHTTPS"
   fi
   ###############################################################################
-  
+
   # Indicando a hora: dia/mês/ano + tempo
   HORA="$(date +'%d/%m/%y | %T')"
-  
+
   # Randomizando os user agents
   NUMBER=$(( $RANDOM % 9 ))
   AGENTS=(
@@ -158,14 +164,14 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   ANU=$(curl -iL -A "$USER_AGENT" "https://jldc.me/anubis/subdomains/$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
   # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
-  echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
-  
-  # Função para pegar o status code 
+  #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
+
+  # Função para pegar o status code
   STATUS(){
       url="$1"
       sleep 1
       urlstatus=$(curl -o /dev/null -k -s --head --write-out  '%{http_code}' "${url}" --max-time 5 -L ) &&
-      echo -e "[URL]: $url \t\t[CODE]: $urlstatus"
+      echo -e "[URL]: $url \t\t[CODE]: $urlstatus" | anew
   }
   export -f STATUS
 
@@ -174,12 +180,12 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Contagem de número de linhas do arquivo com os status codes
   #echo -e "\n${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
-  
+
   # Se o arquivo resp e url existem... + contagem de linhas do resp e url
   if [ -f "$DIRETORIO/resp" ] || [ -f "$DIRETORIO/url" ]; then
     echo -e "${AMARELO}+ Arquivo 'resp' [$(wc -l resp | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'url'  [$(wc -l url | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
   fi
-  
+
   # Se o arquivo url existe, echo. Senão, nada.
   if [[ -f "url" ]]; then
     echo -e "\n${AMARELO}Arquivo com subdominios criado!${FIM}"
@@ -195,6 +201,6 @@ fi
 # proxychains4 curl -s -k -X POST <URL> -v -H "Content-Length:0"
 
 
-# Flag -d | -dns 
+# Flag -d | -dns
 # seila=$2 ?
 # https://api.hackertarget.com/dnslookup/?q=$seila
