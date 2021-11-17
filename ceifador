@@ -84,7 +84,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e "\n${VERDE}\t\t  ~-[${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]-~${FIM}\n\n"
   
   # Checando se a conexão com o site está ativa
-  if nc -zw1 "$1" 443 >/dev/null 2&>1; then
+  if nc -zw1 "$1" 443 2>/dev/null ; then
     echo -e "\n${AMARELO}+ Conexão :${FIM} ${VERDE}OK${FIM}\n"
   else
     echo -e "\n${AMARELO}+ Conexão:${FIM} ${VERMELHO}OFF${FIM}"
