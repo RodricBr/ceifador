@@ -222,6 +222,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   cat resp | anew >> resp-"$1"
   rm resp
   mv url url-"$1"
+  rm url
   cat url-"$1" | anew > urls-"$1"
   rm url-"$1"
 
