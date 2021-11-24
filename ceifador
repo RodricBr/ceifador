@@ -110,7 +110,8 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   #######################################################
   # Perguntar se deseja fazer análise de DNS
   function ANALISE_DNS {
-  read -n 1 -p "${AMARELO}Deseja fazer análise de DNS?${FIM} [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: " RESP;
+  read -n 1 -p "$(echo -e $AMARELO"Deseja fazer análise de DNS?"$FIM [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: )" RESP;
+  read -rp "$(echo -e $CYANO"Hex: "$FIM)"
   
   case $RESP in
   *[![:alpha:]]*) echo -e "\n$RESP não é uma resposta válida!" ;
@@ -223,6 +224,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   rm resp
   mv url url-"$1"
   cat url-"$1" | anew > urls-"$1"
+  rm url-"$1"
 
   # Contagem de número de linhas do arquivo com os status codes
   #echo -e "\n${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
