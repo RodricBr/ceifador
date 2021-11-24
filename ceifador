@@ -106,7 +106,28 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   WEBHTTPS=$(echo "https://$1")
   RESULTHTTP=$(echo | curl -s -I $WEBHTTP --connect-timeout 3 | grep -e Server:)
   RESULTHTTPS=$(echo | curl -s -I $WEBHTTPS --connect-timeout 3 | grep -e Server:)
+  
+  #######################################################
+  # Perguntar se deseja fazer análise de DNS
+  function ANALISEDNS {
+  read -n 1 -p "SIM OU NÃO? [Y/n]: " RESP;
+  
+  case $RESP in
+  *[![:alpha:]]*) echo -e "\n$RESP não é uma resposta válida!" ;
+    exit 1 ;;
+  esac
 
+  [[ "$RESP" != "" ]] && echo "";
+
+  if [ "$RESP" = "${RESP#[Nn]}" ]; then
+    echo -e "Análise de DNS: ${VERDE}[+]${FIM}"
+    curl -s -k "https://api.hackertarget.com/dnslookup/?q=$1"
+  elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
+    echo -e "Análise de DNS: ${VERMELHO}[-]${FIM}"
+  fi
+  }
+  #######################################################
+  
   if [ -z "$RESULTHTTP" ]; then
     echo -e "${VERMELHO}- Banner HTTP não encontrado!${FIM}"
     false
@@ -196,12 +217,17 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # 200 'threads' (rodando em paralelo)
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
+  # Tirando duplicadas usando anew
+  cat resp | anew >> resp-"$1"
+  rm resp
+  mv url url-"$1"
+
   # Contagem de número de linhas do arquivo com os status codes
   #echo -e "\n${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
 
   # Se o arquivo resp e url existem... + contagem de linhas do resp e url
   if [ -f "$DIRETORIO/resp" ] || [ -f "$DIRETORIO/url" ]; then
-    echo -e "${AMARELO}+ Arquivo 'resp' [$(wc -l resp | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'url'  [$(wc -l url | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
+    echo -e "${AMARELO}+ Arquivo 'resp' [$(wc -l resp-"$1" | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'url'  [$(wc -l url-"$1" | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
   fi
 
   # Se o arquivo url existe, echo. Senão, nada.
