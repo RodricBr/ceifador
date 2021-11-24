@@ -155,13 +155,17 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # Parte da criação do arquivo url e o scan do status code dele
   touch url
   
+  # API Omnisint
   #echo -e "\n---[ + ]--- Omnisint:\n" >> url
   sleep 1
-  OMN=$(curl -iL -A "$USER_AGENT" "https://sonar.omnisint.io/subdomains/$1" -s -k -H \
-  "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url)
+  OMN=$(
+  curl -iL -A "$USER_AGENT" "https://sonar.omnisint.io/subdomains/$1" -s -k -H \
+  "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
+  )
   
   # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
   
+  # API Anubis
   #echo -e "\n---[ + ]--- Anubis:\n" >> url
   sleep 1
   ANU=$(
@@ -169,6 +173,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
   )
   
+  # API Hacker Target
   #echo -e "\n---[ + ]--- HackerTarget:\n" >> url
   HKR=$(
   curl -iL -A "$USER_AGENT" "https://api.hackertarget.com/hostsearch/?q=$1" -s -k -H \
@@ -176,7 +181,6 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   )
   sleep 1
   
-  anew url > url
   # if curl == 301 ou 302 --max-redirs 2 :: redirect.exemplo.com --> sub.exemplo.com
   #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
 
