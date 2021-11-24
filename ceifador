@@ -174,7 +174,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   curl -iL -A "$USER_AGENT" "https://api.hackertarget.com/hostsearch/?q=$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
   )
-  sleep1
+  sleep 1
   # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
   #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
 
