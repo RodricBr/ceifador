@@ -110,8 +110,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   #######################################################
   # Perguntar se deseja fazer análise de DNS
   function ANALISE_DNS {
-  read -n 1 -p "$(echo -e $AMARELO"Deseja fazer análise de DNS?"$FIM [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: )" RESP;
-  read -rp "$(echo -e $CYANO"Hex: "$FIM)"
+  read -n 1 -p "$(echo -e $AMARELO"? Deseja fazer análise de DNS?"$FIM [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: )" RESP;
   
   case $RESP in
   *[![:alpha:]]*) echo -e "\n$RESP não é uma resposta válida!" ;
@@ -122,7 +121,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   if [ "$RESP" = "${RESP#[Nn]}" ]; then
     echo -e "Análise de DNS: ${VERDE}[+]${FIM}"
-    curl https://api.hackertarget.com/dnslookup/?q="$1"
+    curl 'https://api.hackertarget.com/dnslookup/?q=^(http|https)://"$1"'
   elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
     echo -e "Análise de DNS: ${VERMELHO}[-]${FIM}"
   fi
