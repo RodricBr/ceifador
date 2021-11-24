@@ -231,7 +231,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   fi
 
   # Se o arquivo url existe, echo. Senão, nada.
-  if [[ -f "url" ]]; then
+  if [[ -f "$DIRETORIO/url-$1" ]]; then
     echo -e "\n${AMARELO}Arquivo com subdominios criado!${FIM}"
     exit 0
   else
