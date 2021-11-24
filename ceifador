@@ -130,7 +130,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   #######################################################
   
   if [ -z "$RESULTHTTP" ]; then
-    echo -e "${VERMELHO}- Banner HTTP não encontrado!${FIM}"
+    echo -e "\n${VERMELHO}- Banner HTTP não encontrado!${FIM}"
     false
   else
     echo -e "${AMARELO}+ Resposta em HTTP:${FIM}\n$RESULTHTTP"
@@ -218,10 +218,11 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # 200 'threads' (rodando em paralelo)
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
-  # Tirando duplicadas usando anew
+  # Tirando duplicadas usando anew e fazendo ajustes
   cat resp | anew >> resp-"$1"
   rm resp
   mv url url-"$1"
+  cat url-"$1" | anew > urls-"$1"
 
   # Contagem de número de linhas do arquivo com os status codes
   #echo -e "\n${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
