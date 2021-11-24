@@ -109,7 +109,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   
   #######################################################
   # Perguntar se deseja fazer análise de DNS
-  function ANALISEDNS {
+  function ANALISE_DNS {
   read -n 1 -p "SIM OU NÃO? [Y/n]: " RESP;
   
   case $RESP in
@@ -126,6 +126,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "Análise de DNS: ${VERMELHO}[-]${FIM}"
   fi
   }
+  ANALISE_DNS
   #######################################################
   
   if [ -z "$RESULTHTTP" ]; then
