@@ -175,7 +175,9 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
   )
   sleep 1
-  # if curl == 301 ou 302 --max-redirs 2 :: redirect --> sub.exemplo.com
+  
+  anew url > url
+  # if curl == 301 ou 302 --max-redirs 2 :: redirect.exemplo.com --> sub.exemplo.com
   #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
 
   # Função para pegar o status code
@@ -211,7 +213,6 @@ else
 fi
 # Comandos cURL para burlar redirect e firewalls:
 # proxychains4 curl -s -k -X POST <URL> -v -H "Content-Length:0"
-
 
 # Flag -d | -dns
 # seila=$2 ?
