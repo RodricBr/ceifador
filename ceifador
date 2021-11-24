@@ -110,7 +110,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   #######################################################
   # Perguntar se deseja fazer análise de DNS
   function ANALISE_DNS {
-  read -n 1 -p "Deseja fazer análise de DNS? [Y/n]: " RESP;
+  read -n 1 -p "${AMARELO}Deseja fazer análise de DNS?${FIM} [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: " RESP;
   
   case $RESP in
   *[![:alpha:]]*) echo -e "\n$RESP não é uma resposta válida!" ;
