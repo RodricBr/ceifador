@@ -7,23 +7,23 @@ export LANG=C.UTF-8
 
 DIRETORIO=$(dirname "$0")
 
-if [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
-  read -n 1 -p "Deseja desinstalar? [Y/n]: " RESP;
+#if [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
+#  read -n 1 -p "Deseja desinstalar? [Y/n]: " RESP;
 
-  [[ "$RESP" != "" ]] && echo "";
+#  [[ "$RESP" != "" ]] && echo "";
 
-  if [ "$RESP" = "${RESP#[Nn]}" ]; then
-    echo -e "SIM"
-    # Desinstalar...
-  elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
-    echo -e "NAO"
-    # exit 0
-  fi
-fi
+#  if [ "$RESP" = "${RESP#[Nn]}" ]; then
+#    echo -e "SIM"
+#    # Desinstalar...
+#  elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
+#    echo -e "NAO"
+#    # exit 0
+#  fi
+#fi
 
-if [[ "$*" == "-o" ]] || [[ "$*" == "-out" ]]; then
-  principal >> output.txt
-fi
+#if [[ "$*" == "-o" ]] || [[ "$*" == "-out" ]]; then
+#  principal >> output.txt
+#fi
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
@@ -110,7 +110,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   #######################################################
   # Perguntar se deseja fazer análise de DNS
   function ANALISE_DNS {
-  read -n 1 -p "SIM OU NÃO? [Y/n]: " RESP;
+  read -n 1 -p "Deseja fazer análise de DNS? [Y/n]: " RESP;
   
   case $RESP in
   *[![:alpha:]]*) echo -e "\n$RESP não é uma resposta válida!" ;
@@ -121,7 +121,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   if [ "$RESP" = "${RESP#[Nn]}" ]; then
     echo -e "Análise de DNS: ${VERDE}[+]${FIM}"
-    curl -s -k "https://api.hackertarget.com/dnslookup/?q=$1"
+    curl https://api.hackertarget.com/dnslookup/?q="$1"
   elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
     echo -e "Análise de DNS: ${VERMELHO}[-]${FIM}"
   fi
