@@ -133,7 +133,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "\n\n${VERMELHO}- Banner HTTP não encontrado!${FIM}"
     false
   else
-    echo -e "\n${AMARELO}+ Resposta em HTTP:${FIM}\n$RESULTHTTP"
+    echo -e "\n\n${AMARELO}+ Resposta em HTTP:${FIM}\n$RESULTHTTP"
   fi
 
   if [ -z "$RESULTHTTPS" ]; then
