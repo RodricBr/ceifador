@@ -27,8 +27,7 @@ function principal(){
       echo -e "Modo verbose.." ;;
 
     "")
-      shift ;
-      break ;;
+      main
 
     '*')
       echo -e "Erro: opção inválida!" ;
@@ -64,6 +63,7 @@ function banner(){
   fi
 }
 
+function main(){
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
 if [[ -z "$*" ]]; then
   echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
@@ -268,7 +268,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 else
   false
 fi
-
+}
 principal $@
 
 # Comandos cURL para burlar redirect e firewalls:
