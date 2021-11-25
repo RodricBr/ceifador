@@ -18,26 +18,23 @@ $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
 
 function principal(){
   set +u
-  while :; do
-    case $1 in
-      '-h'|'-help')
-        ajuda
-      ;;
+  case $1 in
+    '-h'|'-help')
+      ajuda ;
+      exit 0 ;;
 
-      '-v'|'-verbose')
-        echo -e "Modo verbose.."
-      ;;
+    '-v'|'-verbose')
+      echo -e "Modo verbose.." ;;
 
-      "")
-        shift ;
-        break
-      ;;
+    "")
+      shift ;
+      break ;;
 
-      '*')
-        echo -e "Erro: opção inválida!" ;
-        exit 1
-      ;;
+    '*')
+      echo -e "Erro: opção inválida!" ;
+      exit 1 ;;
 
+  esac
 }
 
 principal $@
