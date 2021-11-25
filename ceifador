@@ -234,7 +234,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Se o arquivo resp e url existem... + contagem de linhas do resp e url
   if [ -f "$DIRETORIO/resp-$1" ] || [ -f "$DIRETORIO/urls-$1" ]; then
-    echo -e "${AMARELO}+ Arquivo 'resp'\t[$(wc -l resp-"$1" | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'urls-$1'\t[$(wc -l urls-"$1" | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
+    echo -e "${AMARELO}+ Arquivo 'resp-$1'\t[$(wc -l resp-"$1" | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'urls-$1'\t[$(wc -l urls-"$1" | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
   fi
 
   # Se o arquivo url existe, echo. Senão, nada.
