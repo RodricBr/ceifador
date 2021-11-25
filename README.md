@@ -4,7 +4,7 @@
   <img border="0" src="./img.png" alt="Credit: https://obloguedasantagonices.blogspot.com/2016/02/a-certeza-de-que-um-dia-morrerei_15.html">
 </p>
 
-<h4 align="center">Programa feito para coletar sub-domínios juntamente com os status codes de uma determinada URL usando as APIs: Anubis do JonLuca, e Sonar do Omnisint. A ideia do programa é para que o pesquisador não tenha contato direto com o servidor, deixando a menor quantidade possível de logs dentro dele e de explorar funcionalidades do cURL e shell script.</h4>
+<h4 align="center">Programa feito para coletar sub-domínios juntamente com os status codes de uma determinada URL usando as APIs: Anubis do JonLuca, Sonar do Omnisint e API do HackerTarget. A ideia do programa é para que o pesquisador não tenha contato direto com o servidor, deixando a menor quantidade possível de logs dentro dele e de explorar funcionalidades do cURL e shell script.</h4>
 
 </br>
 
