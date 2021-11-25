@@ -36,27 +36,27 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Se o comando parallel não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v parallel)" ]]; then
-    echo -e "${AMARELO}PARALLEL não está instalado no seu sistema!"
+    echo -e "${AMARELO}PARALLEL não está instalado no seu sistema!${FIM}"
     echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install parallel"
     exit 1
   fi
 
   # Se o programa anew não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v anew)" ]]; then
-    echo -e "${AMARELO}anew não está instalado no seu sistema!"
+    echo -e "${AMARELO}anew não está instalado no seu sistema!${FIM}"
     exit 1
   fi
 
   # Se o comando curl não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v curl)" ]]; then
-    echo -e "${AMARELO}cURL não está instalado no seu sistema!"
+    echo -e "${AMARELO}cURL não está instalado no seu sistema!${FIM}"
     echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install curl"
     exit 1
   fi
 
   # Se o comando netcat não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v netcat)" ]]; then
-    echo -e "${AMARELO}cURL não está instalado no seu sistema!"
+    echo -e "${AMARELO}cURL não está instalado no seu sistema!${FIM}"
     echo -e "${AMARELO}Para instalar, execute:${FIM} sudo apt-get install curl"
     exit 1
   fi
