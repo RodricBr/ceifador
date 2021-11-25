@@ -210,6 +210,9 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   STATUS(){
       url="$1"
       sleep 1
+      # cUrl lendário (Futuro update):
+      # echo -e "Url     ::\t$url"; curl -ks -o /dev/null -i -w 'Status  ::\t''%{http_code}'' \nTamanho ::\t'"%{size_download}\n" -H "X-Originally-Forwarded-For: 127.0.0.1, 68.180.194.242" -X GET "${url}"
+      
       urlstatus=$(curl -o /dev/null -k -s --head --write-out '%{http_code}' "${url}" --max-time 5 -L ) &&
       echo -e "[URL]: $url \t\t[CODE]: $urlstatus" | anew
   }
