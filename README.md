@@ -47,7 +47,7 @@
 
 ### Para fazer:
 
-> Mostrar pra onde a URL é redirecionada, igual a função
+> Mostrar pra onde a URL é redirecionada, igual a função <br>
 > de seguir redirect no HTTPX (-follow-redirects)
 
 <hr>
