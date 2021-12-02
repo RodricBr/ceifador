@@ -38,16 +38,16 @@
 
 ```markdown
 # É possível que o script não funcione em zsh e outros tipos de shell, ele só foi testado
-# em bash versão 4 no sistema operacional Debian 10 buster amd64
+# em bash versão 5 no sistema operacional Debian 10 buster.
+
+# As URLs que não aparecem no arquivo de status code,
+# são aquelas que retornaram status 000 (fail)
 ```
 <hr>
 
 ### Para fazer:
-> Ele não pega todas as urls do output file pra fazer o scan de status code, </br>
-> só algumas... mas quais?? </br>
 
-> Checar se urls do resp tiveram redirects (302), </br>
-> seguir os redirects usando o -L do curl </br>
-> EX: AA=$(cat resp | awk '{print $3}') | curl -L -k -s "$AA" -v </br>
+> Mostrar pra onde a URL é redirecionada, igual a função
+> de seguir redirect no HTTPX (-follow-redirects)
 
 <hr>
