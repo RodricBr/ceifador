@@ -99,7 +99,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   fi
 
   # Pegando os IPS do alvo (ipv4 e ipv6)
-  echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
+  echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e "Address: " | awk '{print $2}' | tr -t "#" ":")\n"
 
   # Banner grabbing (informações de server)
   WEBHTTP=$(echo "http://$1")
