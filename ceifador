@@ -109,6 +109,11 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   
   #######################################################
   # Perguntar se deseja fazer análise de DNS
+  
+  HKRDNS(){
+  curl -s "https://api.hackertarget.com/dnslookup/?q=^(http|https)://$1"
+  }
+  
   function ANALISE_DNS {
   read -n 1 -p "$(echo -e $AMARELO"? Deseja fazer análise de DNS?"$FIM [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: )" RESP;
   
@@ -121,7 +126,8 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   if [ "$RESP" = "${RESP#[Nn]}" ]; then
     echo -e "Análise de DNS: ${VERDE}[+]${FIM}"
-    curl 'https://api.hackertarget.com/dnslookup/?q=^(http|https)://"$1"'
+    HKRDNS
+    #curl 'https://api.hackertarget.com/dnslookup/?q=^(http|https)://"$1"'
   elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
     echo -e "Análise de DNS: ${VERMELHO}[-]${FIM}"
   fi
