@@ -179,7 +179,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   
   # API Omnisint
   #echo -e "\n---[ + ]--- Omnisint:\n" >> url
-  sleep 1
+  sleep 0.5
   OMN=$(
   curl -iL -A "$USER_AGENT" "https://sonar.omnisint.io/subdomains/$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
@@ -189,7 +189,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   
   # API Anubis
   #echo -e "\n---[ + ]--- Anubis:\n" >> url
-  sleep 1
+  sleep 0.5
   ANU=$(
   curl -iL -A "$USER_AGENT" "https://jldc.me/anubis/subdomains/$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
@@ -201,7 +201,13 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   curl -iL -A "$USER_AGENT" "https://api.hackertarget.com/hostsearch/?q=$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
   )
-  sleep 1
+  sleep 0.5
+  
+  # CRT.SH
+  #echo -e "\n---[ + ]--- crt.sh:\n" >> url
+  CRT=$(
+  curl -s "https://crt.sh/?q=%25.$1&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' >> url
+  )
   
   # if curl == 301 ou 302 --max-redirs 2 :: redirect.exemplo.com --> sub.exemplo.com
   #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
@@ -245,6 +251,10 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "\n${VERMELHO}Nada foi encontrado nesse domínio!${FIM}\n"
     exit 1
   fi
+  
+  # Recomendação de comando
+  echo -e "${AMARELO}+ Dica de comando:${FIM}\ncat urls-$1.com | httpx -status-code -follow-redirects -silent >> output.txt"
+  
 else
   false
 fi
