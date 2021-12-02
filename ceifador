@@ -245,14 +245,14 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # Se o arquivo url existe, echo. Senão, nada.
   if [[ -f "$DIRETORIO/urls-$1" ]]; then
     echo -e "\n${AMARELO}Arquivo com subdominios criado!${FIM}"
+    
+    # Recomendação de comando
+    echo -e "${AMARELO}+ Dica de comando:${FIM}\ncat urls-$1.com | httpx -status-code -follow-redirects -silent >> output.txt"
     exit 0
   else
     echo -e "\n${VERMELHO}Nada foi encontrado nesse domínio!${FIM}\n"
     exit 1
   fi
-  
-  # Recomendação de comando
-  echo -e "${AMARELO}+ Dica de comando:${FIM}\ncat urls-$1.com | httpx -status-code -follow-redirects -silent >> output.txt"
   
 else
   false
