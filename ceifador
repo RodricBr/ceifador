@@ -253,7 +253,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "\n${AMARELO}Arquivo com subdominios criado!${FIM}"
     
     # Recomendação de comando
-    echo -e "\n${AMARELO}+ Dica de comando:${FIM}\ncat urls-$1.com | httpx -status-code -follow-redirects -silent >> output.txt"
+    echo -e "\n${AMARELO}+ Dica de comando:${FIM}\ncat urls-$1 | httpx -status-code -follow-redirects -silent -o output.txt"
     exit 0
   else
     echo -e "\n${VERMELHO}Nada foi encontrado nesse domínio!${FIM}\n"
