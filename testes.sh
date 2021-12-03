@@ -26,6 +26,14 @@ uninstall_(){
   exit 0
 }
 
+################################################# teste
+UNSET(){
+if [ "x${var1}${var2}" == "x" ]; then
+  echo "both variables are null"
+fi
+}
+#################################################
+
 while [[ "$1" ]]; do
   case "$1" in
     "--uninstall"|"-u") uninstall_ ;;
@@ -39,7 +47,7 @@ done
 if [[ -z "$1" || "$1" = @(-h|--help) ]]; then
   AJUDA
   exit $(( $# ? 0 : 1 ))
-elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
+elif [[ ! -z "$*" ]]; then # || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Se o comando parallel não existe, sai com exit status 1 (erro)
   if [[ -z "$(command -v parallel)" ]]; then
