@@ -5,73 +5,27 @@
 # Compatíbilidade com utf-8
 export LANG=C.UTF-8
 
-# Deixando o diretório atual em uma variável
 DIRETORIO=$(dirname "$0")
 
-function ajuda(){
-  echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
-  echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n\
-$0 -u | --uninstall :: Desinstalar o programa (não está funcional!)\n\
-$0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
-"
+# Painel de ajuda
+AJUDA(){
+    cat << EOF
+Uso: ${0##*/} <flags>
+    Opções:
+    -u, --uninstall  :: Desinstala o ceifador
+    -h, --help       :: Exibe o painel de ajuda
+EOF
 }
 
-function principal(){
-  set +u
-  case $1 in
-    '-h'|'-help')
-      ajuda ;
-      exit 0 ;;
-
-    '-v'|'-verbose')
-      echo -e "Modo verbose.." ;;
-
-    "")
-      main
-
-    '*')
-      echo -e "Erro: opção inválida!" ;
-      exit 1 ;;
-
-  esac
+uninstall_(){
+  rm -rf ${HOME}/ceifador
+  exit 0
 }
 
-principal $@
-
-function banner(){
-  # Banner
-  echo -e "\n"
-  echo -e ${VERDE}'\t @@@@@@@  @@@@@@@@  @@@  @@@@@@@@   @@@@@@   @@@@@@@    @@@@@@   @@@@@@@   '${FIM}
-  echo -e ${VERDE}'\t@@@@@@@@  @@@@@@@@  @@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  '${FIM}
-  echo -e ${VERDE}'\t!@@       @@!       @@!  @@!       @@!  @@@  @@!  @@@  @@!  @@@  @@!  @@@  '${FIM}
-  echo -e ${VERDE}'\t!@!       !@!       !@!  !@!       !@!  @!@  !@!  @!@  !@!  @!@  !@!  @!@  '${FIM}
-  echo -e ${VERDE}'\t!@!       @!!!:!    !!@  @!!!:!    @!@!@!@!  @!@  !@!  @!@  !@!  @!@!!@!   '${FIM}
-  echo -e ${VERDE}'\t!!!       !!!!!:    !!!  !!!!!:    !!!@!!!!  !@!  !!!  !@!  !!!  !!@!@!    '${FIM}
-  echo -e ${VERDE}'\t:!!       !!:       !!:  !!:       !!:  !!!  !!:  !!!  !!:  !!!  !!: :!!   '${FIM}
-  echo -e ${VERDE}'\t:!:       :!:       :!:  :!:       :!:  !:!  :!:  !:!  :!:  !:!  :!:  !:!  '${FIM}
-  echo -e ${VERDE}'\t ::: :::   :: ::::   ::   ::       ::   :::   :::: ::  ::::: ::  ::   :::  '${FIM}
-  echo -e ${VERDE}'\t :: :: :  : :: ::   :     :         :   : :  :: :  :    : :  :    :   : :  '${FIM}
-  echo -e "\n${VERDE}\t\t  ~-[${FIM} ${VERMELHO}Criado por: RodricBr | github.com/RodricBr${FIM} ${VERDE}]-~${FIM}\n\n"
-
-  # Checando se a conexão com o site está ativa
-  if nc -zw1 "$1" 443 2>/dev/null ; then
-    echo -e "\n${AMARELO}+ Conexão :${FIM} ${VERDE}OK${FIM}\n"
-  else
-    echo -e "\n${AMARELO}+ Conexão:${FIM} ${VERMELHO}OFF${FIM}"
-    echo -e "${VERMELHO}- Sem conexão à internet ou o site!\nSaíndo...${FIM}\n"
-    exit 1
-  fi
-}
-
-function main(){
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
-if [[ -z "$*" ]]; then
-  echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
-  echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n\
-$0 -u | --uninstall :: Desinstalar o programa (não está funcional!)\n\
-$0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
-"
-#elif [[ ! -z "$*" ]]; then
+if [[ -z $1 || $1 = @(-h|--help) ]]; then
+  AJUDA
+  exit $(( $# ? 0 : 1 ))
 elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Se o comando parallel não existe, sai com exit status 1 (erro)
@@ -115,11 +69,31 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     exit 130
   }
 
-  # Chamando a func do banner
-  banner
+  # Banner
+  echo -e "\n"
+  echo -e ${VERDE}'\t @@@@@@@  @@@@@@@@  @@@  @@@@@@@@   @@@@@@   @@@@@@@    @@@@@@   @@@@@@@   '${FIM}
+  echo -e ${VERDE}'\t@@@@@@@@  @@@@@@@@  @@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  '${FIM}
+  echo -e ${VERDE}'\t!@@       @@!       @@!  @@!       @@!  @@@  @@!  @@@  @@!  @@@  @@!  @@@  '${FIM}
+  echo -e ${VERDE}'\t!@!       !@!       !@!  !@!       !@!  @!@  !@!  @!@  !@!  @!@  !@!  @!@  '${FIM}
+  echo -e ${VERDE}'\t!@!       @!!!:!    !!@  @!!!:!    @!@!@!@!  @!@  !@!  @!@  !@!  @!@!!@!   '${FIM}
+  echo -e ${VERDE}'\t!!!       !!!!!:    !!!  !!!!!:    !!!@!!!!  !@!  !!!  !@!  !!!  !!@!@!    '${FIM}
+  echo -e ${VERDE}'\t:!!       !!:       !!:  !!:       !!:  !!!  !!:  !!!  !!:  !!!  !!: :!!   '${FIM}
+  echo -e ${VERDE}'\t:!:       :!:       :!:  :!:       :!:  !:!  :!:  !:!  :!:  !:!  :!:  !:!  '${FIM}
+  echo -e ${VERDE}'\t ::: :::   :: ::::   ::   ::       ::   :::   :::: ::  ::::: ::  ::   :::  '${FIM}
+  echo -e ${VERDE}'\t :: :: :  : :: ::   :     :         :   : :  :: :  :    : :  :    :   : :  '${FIM}
+  echo -e "\n${VERDE}\t\t  ~-[${FIM} ${VERMELHO}Criado por: $(echo -e "\033[32;5mRodricBr\033[0m ") | github.com/RodricBr${FIM} ${VERDE}]-~${FIM}\n\n"
+
+  # Checando se a conexão com o site está ativa
+  if nc -zw1 "$1" 443 2>/dev/null ; then
+    echo -e "\n${AMARELO}+ Conexão :${FIM} ${VERDE}OK${FIM}\n"
+  else
+    echo -e "\n${AMARELO}+ Conexão:${FIM} ${VERMELHO}OFF${FIM}"
+    echo -e "${VERMELHO}- Sem conexão à internet ou o site!\nSaíndo...${FIM}\n"
+    exit 1
+  fi
 
   # Pegando os IPS do alvo (ipv4 e ipv6)
-  echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e Address: | awk '{print $2}' | tr -t "#" ":")\n"
+  echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e "Address: " | awk '{print $2}' | tr -t "#" ":")\n"
 
   # Banner grabbing (informações de server)
   WEBHTTP=$(echo "http://$1")
@@ -129,6 +103,11 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   #######################################################
   # Perguntar se deseja fazer análise de DNS
+
+  HKRDNS(){
+  curl -s "https://api.hackertarget.com/dnslookup/?q=^(http|https)://$1"
+  }
+
   function ANALISE_DNS {
   read -n 1 -p "$(echo -e $AMARELO"? Deseja fazer análise de DNS?"$FIM [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: )" RESP;
 
@@ -141,7 +120,8 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   if [ "$RESP" = "${RESP#[Nn]}" ]; then
     echo -e "Análise de DNS: ${VERDE}[+]${FIM}"
-    curl 'https://api.hackertarget.com/dnslookup/?q=^(http|https)://"$1"'
+    HKRDNS
+    #curl 'https://api.hackertarget.com/dnslookup/?q=^(http|https)://"$1"'
   elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
     echo -e "Análise de DNS: ${VERMELHO}[-]${FIM}"
   fi
@@ -199,7 +179,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # API Omnisint
   #echo -e "\n---[ + ]--- Omnisint:\n" >> url
-  sleep 1
+  sleep 0.5
   OMN=$(
   curl -iL -A "$USER_AGENT" "https://sonar.omnisint.io/subdomains/$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
@@ -209,7 +189,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # API Anubis
   #echo -e "\n---[ + ]--- Anubis:\n" >> url
-  sleep 1
+  sleep 0.5
   ANU=$(
   curl -iL -A "$USER_AGENT" "https://jldc.me/anubis/subdomains/$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
@@ -221,7 +201,13 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   curl -iL -A "$USER_AGENT" "https://api.hackertarget.com/hostsearch/?q=$1" -s -k -H \
   "Referer:$1" | grep -oE "[a-zA-Z0-9._-]+\.$1" >> url
   )
-  sleep 1
+  sleep 0.5
+
+  # CRT.SH
+  #echo -e "\n---[ + ]--- crt.sh:\n" >> url
+  CRT=$(
+  curl -s "https://crt.sh/?q=%25.$1&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' >> url
+  )
 
   # if curl == 301 ou 302 --max-redirs 2 :: redirect.exemplo.com --> sub.exemplo.com
   #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
@@ -238,14 +224,13 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   }
   export -f STATUS
 
-  # 100 'threads/max jobs' (rodando em paralelo)
-  parallel -j100 STATUS :::: url >> resp 2>/dev/null
+  # 200 'threads/max jobs' (rodando em paralelo)
+  parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
   # Tirando duplicadas usando anew e fazendo ajustes
   cat resp | anew >> resp-"$1"
   rm resp
   mv url url-"$1"
-  rm url
   cat url-"$1" | anew > urls-"$1"
   rm url-"$1"
 
@@ -253,27 +238,31 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   #echo -e "\n${AMARELO}+ Número de domínios:${FIM} $(wc -l resp | awk '{print $1}')"
 
   # Se o arquivo resp e url existem... + contagem de linhas do resp e url
-  if [ -f "$DIRETORIO/resp" ] || [ -f "$DIRETORIO/url" ]; then
-    echo -e "${AMARELO}+ Arquivo 'resp' [$(wc -l resp-"$1" | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'url'  [$(wc -l url-"$1" | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
+  if [ -f "$DIRETORIO/resp-$1" ] || [ -f "$DIRETORIO/urls-$1" ]; then
+    echo -e "${AMARELO}+ Arquivo 'resp-$1'\t[$(wc -l resp-"$1" | awk '{print $1}')]\t--> Status Codes\n+ Arquivo 'urls-$1'\t[$(wc -l urls-"$1" | awk '{print $1}')]\t--> Todos os Sub-dominios${FIM}"
   fi
 
   # Se o arquivo url existe, echo. Senão, nada.
-  if [[ -f "$DIRETORIO/url-$1" ]]; then
+  if [[ -f "$DIRETORIO/urls-$1" ]]; then
     echo -e "\n${AMARELO}Arquivo com subdominios criado!${FIM}"
+
+    # Recomendação de comando
+    echo -e "\n${AMARELO}+ Dica de comando:${FIM}\ncat urls-$1 | httpx -status-code -follow-redirects -silent -o output.txt"
     exit 0
   else
     echo -e "\n${VERMELHO}Nada foi encontrado nesse domínio!${FIM}\n"
     exit 1
   fi
+
 else
   false
 fi
-}
-principal $@
 
-# Comandos cURL para burlar redirect e firewalls:
-# proxychains4 curl -s -k -X POST <URL> -v -H "Content-Length:0"
-
-# Flag -d | -dns
-# seila=$2 ?
-# https://api.hackertarget.com/dnslookup/?q=$seila
+while [[ "$1" ]]; do
+  case "$1" in
+    "--uninstall"|"-u") uninstall_ ;;
+    "--help"|"-h") AJUDA ;;
+    *) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
+  esac
+  shift
+done
