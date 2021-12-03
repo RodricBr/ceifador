@@ -30,13 +30,11 @@ while [[ "$1" ]]; do
   case "$1" in
     "--uninstall"|"-u") uninstall_ ;;
     "--help"|"-h") AJUDA ;;
-    "-alvo"|"-alvo") PRINCIP ;;
     *) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
   esac
   shift
 done
 
-function PRINCIP(){
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
 if [[ -z "$1" || "$1" = @(-h|--help) ]]; then
   AJUDA
@@ -272,4 +270,3 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 else
   false
 fi
-}
