@@ -47,6 +47,7 @@ done
 if [[ -z "$1" || "$1" = @(-h|--help) ]]; then
   AJUDA
   exit $(( $# ? 0 : 1 ))
+  #if [ "x${var1}${var2}" == "x" ]; then
 elif [[ ! -z "$*" ]]; then # || ! [[ "$*" =~ [A-Za-z] ]]; then
 
   # Se o comando parallel não existe, sai com exit status 1 (erro)
