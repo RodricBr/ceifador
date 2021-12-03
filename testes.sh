@@ -18,9 +18,10 @@ EOF
 }
 
 uninstall_(){
-  cd ~
+  #cd ~
   #rm -rf ${HOME}/ceifador
-  sudo find / -type d -iname ceifador
+  sudo find / -type d -iname ceifador -exec rm {} \;
+  cd -
   exit 0
 }
 
