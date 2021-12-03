@@ -20,13 +20,23 @@ EOF
 uninstall_(){
   #cd ~
   #rm -rf ${HOME}/ceifador
-  sudo find / -type d -iname ceifador -exec rm {} \;
-  cd -
+  sudo find / -type d -iname ceifador -exec rm -rf {} \; 2>/dev/null
+  echo -e "Até a próxima! :("
+  #cd -
   exit 0
 }
 
+while [[ "$1" ]]; do
+  case "$1" in
+    "--uninstall"|"-u") uninstall_ ;;
+    "--help"|"-h") AJUDA ;;
+    *) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
+  esac
+  shift
+done
+
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
-if [[ -z $1 || $1 = @(-h|--help) ]]; then
+if [[ -z "$1" || "$1" = @(-h|--help) ]]; then
   AJUDA
   exit $(( $# ? 0 : 1 ))
 elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
@@ -84,7 +94,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   echo -e ${VERDE}'\t:!:       :!:       :!:  :!:       :!:  !:!  :!:  !:!  :!:  !:!  :!:  !:!  '${FIM}
   echo -e ${VERDE}'\t ::: :::   :: ::::   ::   ::       ::   :::   :::: ::  ::::: ::  ::   :::  '${FIM}
   echo -e ${VERDE}'\t :: :: :  : :: ::   :     :         :   : :  :: :  :    : :  :    :   : :  '${FIM}
-  echo -e "\n${VERDE}\t\t  ~-[${FIM} ${VERMELHO}Criado por: $(echo -e "\033[32;5mRodricBr\033[0m ") | github.com/RodricBr${FIM} ${VERDE}]-~${FIM}\n\n"
+  echo -e "\n${VERDE}\t\t  ~-[${FIM} ${VERMELHO}Criado por: $(echo -e "\033[32;5mRodricBr\033[0m ") ${VERMELHO}| github.com/RodricBr${FIM} ${VERDE}]-~${FIM}\n\n"
 
   # Checando se a conexão com o site está ativa
   if nc -zw1 "$1" 443 2>/dev/null ; then
@@ -228,7 +238,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   export -f STATUS
 
   # 200 'threads/max jobs' (rodando em paralelo)
-  parallel -j200 STATUS :::: url >> resp 2>/dev/null
+  parallel -j100 STATUS :::: url >> resp 2>/dev/null
 
   # Tirando duplicadas usando anew e fazendo ajustes
   cat resp | anew >> resp-"$1"
@@ -260,12 +270,3 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
 else
   false
 fi
-
-while [[ "$1" ]]; do
-  case "$1" in
-    "--uninstall"|"-u") uninstall_ ;;
-    "--help"|"-h") AJUDA ;;
-    *) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
-  esac
-  shift
-done
