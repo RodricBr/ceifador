@@ -19,9 +19,8 @@ EOF
 
 uninstall_(){
   #cd ~
-  #rm -rf ${HOME}/ceifador
   sudo find / -type d -iname ceifador -exec rm -rf {} \; 2>/dev/null
-  echo -e "Até a próxima! :("
+  echo -e "${0##*/} desinstalado!\nAté a próxima! :("
   #cd -
   exit 0
 }
