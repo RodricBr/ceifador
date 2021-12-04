@@ -41,7 +41,7 @@
 # em bash versão 5 no sistema operacional Debian 10 buster.
 
 # As URLs que não aparecem no arquivo de status code,
-# são aquelas que retornaram status 000 (fail)
+# são aquelas que retornaram status 000 (fail / limitação do curl)
 ```
 <hr>
 
