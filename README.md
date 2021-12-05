@@ -1,8 +1,8 @@
 <h1 align="center">~ Ceifador ~</h1> </br>
 
 <p align="center">
-  <a href="#--usage">Usage</a> •
-  <a href="#--installation--requirements">Installation</a>
+  <a href="#--uso">Uso</a> •
+  <a href="#--instalação">Instalação</a>
 </p>
 
 
