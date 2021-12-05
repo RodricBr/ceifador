@@ -56,4 +56,6 @@
 > Mostrar pra onde a URL é redirecionada, igual a função <br>
 > de seguir redirect no HTTPX (-follow-redirects)
 
+> Criar um parâmetro -u | -uinstall para desinstalar o programa
+
 <hr>
