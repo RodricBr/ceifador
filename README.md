@@ -1,6 +1,12 @@
 <h1 align="center">~ Ceifador ~</h1> </br>
 
 <p align="center">
+  <a href="#--usage">Usage</a> •
+  <a href="#--installation--requirements">Installation</a>
+</p>
+
+
+<p align="center">
   <img border="0" draggable="false" src="./img.png" alt="Credit: https://obloguedasantagonices.blogspot.com/2016/02/a-certeza-de-que-um-dia-morrerei_15.html">
 </p>
 
