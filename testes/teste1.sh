@@ -25,14 +25,6 @@ uninstall_(){
   exit 0
 }
 
-################################################# teste
-#UNSET(){
-#if [ "x${var1}${var2}" == "x" ]; then
-#  echo "both variables are null"
-#fi
-#}
-#################################################
-
 while [[ "$1" ]]; do
   case "$1" in
     "--uninstall"|"-u") uninstall_ ;;
