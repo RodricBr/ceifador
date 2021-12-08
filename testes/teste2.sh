@@ -42,6 +42,10 @@ while [[ "$1" ]]; do
   shift
 done
 
+
+# IDEIA: se o tamanho dos parâmetros for menor ou igual a 2
+# ex: programa.sh param1
+# executa o programa
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
 if [[ -z "$1" || "$1" = @(-h|--help) ]]; then
   AJUDA
