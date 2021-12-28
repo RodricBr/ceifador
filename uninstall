@@ -13,10 +13,9 @@ if [[ -z "$1" ]]; then
   echo -e " [1] Desinstalar o ceifador."
   echo -e " [0] Sair do menu."
   read -rp " Selecione a opção: " OPCAO_
-  case "$1" in
-    "--uninstall"|"-u") uninstall_ ;;
-    "--help"|"-h") AJUDA ;;
-    "") MAIN ;;
-    #*) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
+  case "$OPCAO_" in
+    1) uninstall_ ;;
+    0) MAIN ;;
+    *) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
   esac
 fi
