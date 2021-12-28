@@ -16,7 +16,7 @@
 
 ## - Instalação:
 
-> git clone https://github.com/rodricbr/ceifador.git </br>
+> git clone https://github.com/rodricbr/ceifador </br>
 
 > cd ceifador/;chmod +x ceifador </br>
 
@@ -34,9 +34,9 @@
 ## - Opções:
 
 ```markdown
-./ceifador -h | --help      :: Mostrar o painel de ajuda
-./ceifador -u | --uninstall :: Desinstalar o programa (Não funciona no momento!)
-./ceifador <URL>            :: Executador o ceifador em uma determinada URL (sem HTTP/S na URL)
+./ceifador -h | --help  :: Mostrar o painel de ajuda
+./ceifador <URL>        :: Executador o ceifador em uma determinada URL (sem HTTP/S na URL)
+./uninstall             :: Desinstalar o programa
 ```
 </br>
 
