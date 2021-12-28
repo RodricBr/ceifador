@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 if [ "$EUID" -ne 0 ]; then
-  echo -e "Precisa rodar como root! (sudo ${0##*/})"
+  echo -e "Precisa rodar como root! (sudo ./${0##*/})"
   exit 1
 fi
 
