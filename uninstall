@@ -15,7 +15,7 @@ if [[ -z "$1" ]]; then
   read -rp " Selecione a opção: " OPCAO_
   case "$OPCAO_" in
     1) uninstall_ ;;
-    0) MAIN ;;
+    0) exit 0 ;;
     *) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
   esac
 fi
