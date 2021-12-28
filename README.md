@@ -57,3 +57,5 @@
 > de seguir redirect no HTTPX (-follow-redirects)
 
 <hr>
+
+###### made with <3 by Rodric
