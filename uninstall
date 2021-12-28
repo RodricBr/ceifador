@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
-uninstall_(){
+desinstalar_(){
   #cd ~
   sudo find / -type d -iname ceifador -exec rm -rf {} \; 2>/dev/null
-  sudo find / -type f -iname ceifador -exec rm -rf {} \; 2>/dev/null
+  #sudo find / -type f -iname ceifador -exec rm -rf {} \; 2>/dev/null
   echo -e "${0##*/} desinstalado!\nAté a próxima! :("
   #cd -
   exit 0
@@ -14,8 +14,9 @@ if [[ -z "$1" ]]; then
   echo -e " [0] Sair do menu."
   read -rp " Selecione a opção: " OPCAO_
   case "$OPCAO_" in
-    1) uninstall_ ;;
+    1) desinstalar_ ;;
     0) exit 0 ;;
-    *) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
+    *) echo -e "Opção inválida!" ;
+      exit 1 ;;
   esac
 fi
