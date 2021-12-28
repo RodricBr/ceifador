@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+uninstall_(){
+  #cd ~
+  sudo find / -type d -iname ceifador -exec rm -rf {} \; 2>/dev/null
+  sudo find / -type f -iname ceifador -exec rm -rf {} \; 2>/dev/null
+  echo -e "${0##*/} desinstalado!\nAté a próxima! :("
+  #cd -
+  exit 0
+}
+
+if [[ -z "$1" ]]; then
+  echo -e " [1] Desinstalar o ceifador."
+  echo -e " [0] Sair do menu."
+  read -rp " Selecione a opção: " OPCAO_
+  case "$1" in
+    "--uninstall"|"-u") uninstall_ ;;
+    "--help"|"-h") AJUDA ;;
+    "") MAIN ;;
+    #*) AJUDA && exit 1 ;; #echo -e "Opção inválida!"
+  esac
+fi
