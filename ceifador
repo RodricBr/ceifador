@@ -1,34 +1,14 @@
 #!/usr/bin/bash
 
-# Em desenvolvimento e com vários bugs...
-
 # Compatíbilidade com utf-8
 export LANG=C.UTF-8
 
 DIRETORIO=$(dirname "$0")
 
-#if [[ "$*" == "-u" ]] || [[ "$*" == "--uninstall" ]]; then
-#  read -n 1 -p "Deseja desinstalar? [Y/n]: " RESP;
-
-#  [[ "$RESP" != "" ]] && echo "";
-
-#  if [ "$RESP" = "${RESP#[Nn]}" ]; then
-#    echo -e "SIM"
-#    # Desinstalar...
-#  elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
-#    echo -e "NAO"
-#    # exit 0
-#  fi
-#fi
-
-#if [[ "$*" == "-o" ]] || [[ "$*" == "-out" ]]; then
-#  principal >> output.txt
-#fi
 # Se os parametros estiverem vazios, mensagem de ajuda.. senão(com a URL), executa o programa
 if [[ -z "$*" ]] || [[ "$*" == "-h" ]] || [[ "$*" == "--help" ]]; then
   echo -e "\nUso: $0 <URL sem http/s>\n\nOpções:"
   echo -e "$0 -h | --help      :: Mostra esse painel de ajuda\n\
-$0 -u | --uninstall :: Desinstalar o programa (não está funcional!)\n\
 $0 <URL>            :: Ceifar sub-domínios e status code de uma determinada URL
 "
 #elif [[ ! -z "$*" ]]; then
@@ -154,7 +134,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   HORA="$(date +'%d/%m/%y | %T')"
 
   # Randomizando os user agents
-  NUMBER=$(( $RANDOM % 9 ))
+  RANDOMIZADOR=$(( $RANDOM % 9 ))
   AGENTS=(
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.94 Chrome/37.0.2062.94 Safari/537.36"
     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36"
@@ -178,7 +158,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     "Mozilla/5.0 (Windows NT 6.1; rv:40.0) Gecko/20100101 Firefox/40.0"
     "Mozilla/5.0 (Windows NT 6.1; rv:31.0) Gecko/20100101 Firefox/31.0"
     )
-  USER_AGENT=$(echo ${AGENTS[$NUMBER]})
+  USER_AGENT=$(echo ${AGENTS[$RANDOMIZADOR]})
 
   # Parte da criação do arquivo url e o scan do status code dele
   touch url
