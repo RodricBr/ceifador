@@ -84,8 +84,8 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # Banner grabbing (informações de server)
   WEBHTTP=$(echo "http://$1")
   WEBHTTPS=$(echo "https://$1")
-  RESULTHTTP=$(echo | curl -s -I $WEBHTTP --connect-timeout 3 | grep -e Server:)
-  RESULTHTTPS=$(echo | curl -s -I $WEBHTTPS --connect-timeout 3 | grep -e Server:)
+  RESULTHTTP=$(echo | curl -s -I "$WEBHTTP" --connect-timeout 3 | grep -e Server:)
+  RESULTHTTPS=$(echo | curl -s -I "$WEBHTTPS" --connect-timeout 3 | grep -e Server:)
   
   #######################################################
   # Perguntar se deseja fazer análise de DNS
