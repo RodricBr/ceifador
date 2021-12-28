@@ -36,7 +36,7 @@
 ```markdown
 ./ceifador -h | --help  :: Mostrar o painel de ajuda
 ./ceifador <URL>        :: Executador o ceifador em uma determinada URL (sem HTTP/S na URL)
-./uninstall             :: Desinstalar o programa
+sudo ./uninstall        :: Desinstalar o programa
 ```
 </br>
 
