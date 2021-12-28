@@ -22,7 +22,7 @@
 
 </br>
 
-> **Para deixar o programa funcional em qualquer parte do sistema:** </br>
+> **Para deixar o programa funcional em qualquer parte do sistema (adicionar aos binários):** </br>
 
 > sudo mv ceifador /usr/local/bin </br>
 
@@ -44,7 +44,7 @@
 
 ```markdown
 # É possível que o script não funcione em zsh e outros tipos de shell, ele só foi testado
-# em bash versão 5 no sistema operacional Debian 10 buster.
+# em bash versão 5 no sistema Debian 10 buster.
 
 # As URLs que não aparecem no arquivo de status code,
 # são aquelas que retornaram status 000 (falhou)
@@ -55,7 +55,5 @@
 
 > Mostrar pra onde a URL é redirecionada, igual a função <br>
 > de seguir redirect no HTTPX (-follow-redirects)
-
-> Criar um parâmetro -u | -uinstall para desinstalar o programa
 
 <hr>
