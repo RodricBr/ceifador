@@ -60,4 +60,4 @@
 
 <br>
 
-###### made with <3 by Rodric
+**made with <3 by Rodric**
