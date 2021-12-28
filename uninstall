@@ -1,10 +1,15 @@
 #!/usr/bin/bash
 
+if [ "$EUID" -ne 0 ]; then
+  echo -e "Precisa rodar como root! (sudo ${0##*/})"
+  exit 1
+fi
+
 desinstalar_(){
   #cd ~
   sudo find / -type d -iname ceifador -exec rm -rf {} \; 2>/dev/null
   #sudo find / -type f -iname ceifador -exec rm -rf {} \; 2>/dev/null
-  echo -e "${0##*/} desinstalado!\nAté a próxima! :("
+  echo -e "Ceifador desinstalado!\nAté a próxima! <3"
   #cd -
   exit 0
 }
