@@ -10,7 +10,7 @@
   <img border="0" draggable="false" src="./img.png" alt="Credit: https://obloguedasantagonices.blogspot.com/2016/02/a-certeza-de-que-um-dia-morrerei_15.html">
 </p>
 -->
-                      |
+
 Programa             |  Resultados do Scan
 :-------------------------:|:-------------------------:
 ![](https://cdn.discordapp.com/attachments/759448770802483200/925885171721457725/unknown.png)  |  ![](https://cdn.discordapp.com/attachments/759448770802483200/925885541713596447/unknown.png)
