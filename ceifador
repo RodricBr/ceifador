@@ -91,7 +91,8 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   # Perguntar se deseja fazer análise de DNS
   
   HKRDNS(){
-  curl -s "https://api.hackertarget.com/dnslookup/?q=^(http|https)://$1"
+  #curl -s "https://api.hackertarget.com/dnslookup/?q=^(http|https)://$1"
+  curl -s https://api.hackertarget.com/dnslookup/?q="$1"
   }
   
   function ANALISE_DNS {
