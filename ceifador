@@ -87,6 +87,9 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   RESULTHTTP=$(echo | curl -s -I "$WEBHTTP" --connect-timeout 3 | grep -e Server:)
   RESULTHTTPS=$(echo | curl -s -I "$WEBHTTPS" --connect-timeout 3 | grep -e Server:)
   
+  # Indicando a hora: dia/mês/ano + tempo
+  HORA="$(date +'%d/%m/%y | %T')"
+  
   #######################################################
   # Perguntar se deseja fazer análise de DNS
   
@@ -124,9 +127,6 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     echo -e "${AMARELO}+ Resposta em HTTPS:${FIM}\n$RESULTHTTPS"
   fi
   ###############################################################################
-
-  # Indicando a hora: dia/mês/ano + tempo
-  HORA="$(date +'%d/%m/%y | %T')"
 
   # Randomizando os user agents
   RANDOMIZADOR=$(( $RANDOM % 9 ))
