@@ -13,7 +13,7 @@
 
 Programa             |  Resultados do Scan
 :-------------------------:|:-------------------------:
-![](https://cdn.discordapp.com/attachments/759448770802483200/925885171721457725/unknown.png)  |  ![](https://cdn.discordapp.com/attachments/759448770802483200/925885541713596447/unknown.png)
+![](https://cdn.discordapp.com/attachments/759448770802483200/927674968018419752/unknown.png)  |  ![](https://cdn.discordapp.com/attachments/759448770802483200/927675304913289280/unknown.png)
 
 <h4 align="center">Programa feito para coletar sub-domínios juntamente com os status codes de uma determinada URL usando as APIs: Anubis do JonLuca, Sonar do Omnisint e API do HackerTarget. A ideia do programa é para que o pesquisador não tenha contato direto com o servidor, deixando a menor quantidade possível de logs dentro dele e de explorar funcionalidades do cURL e shell script.</h4>
 
