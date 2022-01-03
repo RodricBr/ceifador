@@ -169,7 +169,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     )
   USER_AGENT=$(echo ${AGENTS[$RANDOMIZADOR]})
 
-  echo -e "\n${VERDE} ---[ Realizando o scan de Sub-domínios ]---${FIM}"
+  echo -e "\n${VERDE} ---[ Realizando o scan de Sub-domínios ]---${FIM}\n"
 
   # Parte da criação do arquivo url e o scan do status code dele
   touch url
