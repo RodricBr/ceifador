@@ -79,7 +79,8 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   fi
 
   # Pegando os IPS do alvo (ipv4 e ipv6)
-  echo -e "${AMARELO}+ $1 IP/s:${FIM}\n$(nslookup "$1" | grep -e "Address: " | awk '{print $2}' | tr -t "#" ":")\n"
+  IPS_=$(nslookup "$1" | grep -e "Address: " | awk '{print $2}' | tr -t "#" ":")
+  echo -e "${AMARELO}+ $1 IP/s:${FIM}\n${IPS_}\n"
 
   # Banner grabbing (informações de server)
   WEBHTTP=$(echo "http://$1")
@@ -87,12 +88,16 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   RESULTHTTP=$(echo | curl -s -I "$WEBHTTP" --connect-timeout 3 | grep -e Server:)
   RESULTHTTPS=$(echo | curl -s -I "$WEBHTTPS" --connect-timeout 3 | grep -e Server:)
   
-  # Indicando a hora: dia/mês/ano + tempo
-  HORA="$(date +'%d/%m/%y | %T')"
-  
   #######################################################
   # Perguntar se deseja fazer análise de DNS
   
+  #HKRDNS(){
+  #curl -s "https://api.hackertarget.com/dnslookup/?q=^(http|https)://$1"
+  #curl -s https://api.hackertarget.com/dnslookup/?q="$1"
+  #curl -s https://api.hackertarget.com/hostsearch/?q="$IPS_"
+  #}
+  
+  #function ANALISE_DNS {
   read -n 1 -p "$(echo -e $AMARELO"? Deseja fazer análise de DNS?"$FIM [${VERDE}Y${FIM}/${VERMELHO}n${FIM}]: )" RESP;
   
   case $RESP in
@@ -100,13 +105,23 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     exit 1 ;;
   esac
 
-  [[ "$RESP" != "" ]] && echo "";
+  # Indicando a hora: dia/mês/ano + tempo
+  HORA="$(date +'%d/%m/%y | %T')"
 
+  [[ "$RESP" != "" ]] && echo "";
+  
   if [ "$RESP" = "${RESP#[Nn]}" ]; then
     echo -e "Análise de DNS: ${VERDE}[+]${FIM}"
-    echo -e "---[ $1 | $HORA ]---" > DNS-"$1"
-    curl -s "https://dns.bufferover.run/dns?q=.$1" >> DNS-"$1"
-    echo -e "Arquivo criado: DNS-$1"
+    #echo -e "---[ $1 | $HORA ]---" > "$1"-DNS
+    printf 'A\nAAAA\nAFSDB\nAPL\nCAA\nCDNSKEY\nCDS\nCERT\nCNAME\nCSYNC\nDHCID\nDLV\nDNAME\nDNSKEY\nDS\nEUI48\nEUI64\nHINFO\nHIP\nIPSECKEY\nKEY\nKX\nLOC\nMX\nNAPTR\nNS\nNSEC\nNSEC3\nNSEC3PARAM\nOPENPGPKEY\nPTR\nRRSIG\nRP\nSIG\nSMIMEA\nSOA\nSRV\nSSHFP\nTA\nTKEY\nTLSA\nTSIG\nTXT\nURI\nMD\nMF\nMAILA\nMB\nMG\nMR\nMINFO\nMAILB\nWKS\nNULL\nA6\nNXT\nKEY\nSIG\nRP\nX25\nISDN\nRT\nNSAP\nNSAP-PTR\nPX\nAPL\nSINK\nGPOS\nUNSPEC\nSPF\nNINFO\nRKEY\nTALINK\nNID\nL32\nL64\nLP\nDOA' > __dns.records
+    printf "\n\e[1;32m---[ Realizando o scan de DNS ]---\e[0m\n\n"
+    
+    for __dnsrecord__ in $(cat __dns.records);do
+      host -t $__dnsrecord__ "$1" | grep -iEv 'has no|SERVFAIL' 2>/dev/null
+    done
+    rm -f __dns.records
+
+    #echo -e "Arquivo com DNS criado ($1-DNS)"
     #curl 'https://api.hackertarget.com/dnslookup/?q=^(http|https)://"$1"'
   elif [ "$RESP" = "${RESP#^[Yy]$}" ]; then
     echo -e "Análise de DNS: ${VERMELHO}[-]${FIM}"
@@ -126,7 +141,6 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   else
     echo -e "${AMARELO}+ Resposta em HTTPS:${FIM}\n$RESULTHTTPS"
   fi
-  ###############################################################################
 
   # Randomizando os user agents
   RANDOMIZADOR=$(( $RANDOM % 9 ))
@@ -152,7 +166,6 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     "Mozilla/5.0 (iPad; CPU OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F69 Safari/600.1.4"
     "Mozilla/5.0 (Windows NT 6.1; rv:40.0) Gecko/20100101 Firefox/40.0"
     "Mozilla/5.0 (Windows NT 6.1; rv:31.0) Gecko/20100101 Firefox/31.0"
-    "GoogleBot"
     )
   USER_AGENT=$(echo ${AGENTS[$RANDOMIZADOR]})
 
@@ -191,7 +204,6 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   curl -s "https://crt.sh/?q=%25.$1&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' >> url
   )
   
-  # if curl == 301 ou 302 --max-redirs 2 :: redirect.exemplo.com --> sub.exemplo.com
   #echo -e "\n+--------------- Scan finalizado: $HORA ---------------+\n" >> url
 
   # Função para pegar o status code
@@ -200,7 +212,6 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
       sleep 1
       # cUrl lendário + Follow redirects (Futuro update):
       # echo -e "Url     ::\t$url"; curl -ks -o /dev/null -i -w 'Status  ::\t''%{http_code}'' \nTamanho ::\t'"%{size_download}\n" -H "X-Originally-Forwarded-For: 127.0.0.1, 68.180.194.242" -X GET "${url}" -L
-      # cat urls-"$1".com | parallel -j100 -q curl -w 'Status: %{http_code}\t  Tamanho: %{size_download}\t   %{url_effective}\n' -o /dev/null -sk
       
       urlstatus=$(curl -o /dev/null -k -s --head --write-out '%{http_code}' "${url}" --max-time 5 -L ) &&
       echo -e "[URL]: $url \t\t[CODE]: $urlstatus" | anew
@@ -211,7 +222,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
   # Tirando duplicadas usando anew e fazendo ajustes
-  cat resp | anew >> resp-"$1"
+  cat resp | anew > resp-"$1"
   rm resp
   mv url url-"$1"
   cat url-"$1" | anew > urls-"$1"
