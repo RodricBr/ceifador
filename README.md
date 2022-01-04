@@ -2,6 +2,7 @@
 
 <p align="center">
   <a href="#--uso">Uso</a> •
+  <a href="https://github.com/rodricbr/ceifador-en">EN-US</a> •
   <a href="#--instalação">Instalação</a>
 </p>
 
