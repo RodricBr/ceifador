@@ -37,6 +37,7 @@ Programa             |  Resultados do Scan
 > bash ceifador </br>
 
 > ./ceifador </br>
+
 ## - Opções:
 
 ```markdown
