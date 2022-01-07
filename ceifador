@@ -22,6 +22,9 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   fi
 
   # Se o programa anew não existe, sai com exit status 1 (erro)
+  # Substituir o anew por:
+  # curl -s "https://jldc.me/anubis/subdomains/$1" | grep -Po "((http|https):\/\/)?(([\w.-]*)\.([A-z]))\w+" > urless.txt | awk '!seen[$0]++' urless.txt
+  # curl -s "seila" | "bla bla bla" > urls.txt | awk '!seen[$0]++' urls.txt
   if [[ -z "$(command -v anew)" ]]; then
     echo -e "${AMARELO}anew não está instalado no seu sistema!${FIM}"
     exit 1
