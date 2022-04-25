@@ -11,6 +11,7 @@ desinstalar_(){
   #sudo find / -type f -iname ceifador -exec rm -rf {} \; 2>/dev/null
   echo -e "Ceifador desinstalado!\nAté a próxima! <3"
   #cd -
+  # usar o comando source pra atualizar a remoção do diretório do ceifador
   exit 0
 }
 
