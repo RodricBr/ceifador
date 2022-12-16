@@ -119,7 +119,7 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
     printf 'A\nAAAA\nAFSDB\nAPL\nCAA\nCDNSKEY\nCDS\nCERT\nCNAME\nCSYNC\nDHCID\nDLV\nDNAME\nDNSKEY\nDS\nEUI48\nEUI64\nHINFO\nHIP\nIPSECKEY\nKEY\nKX\nLOC\nMX\nNAPTR\nNS\nNSEC\nNSEC3\nNSEC3PARAM\nOPENPGPKEY\nPTR\nRRSIG\nRP\nSIG\nSMIMEA\nSOA\nSRV\nSSHFP\nTA\nTKEY\nTLSA\nTSIG\nTXT\nURI\nMD\nMF\nMAILA\nMB\nMG\nMR\nMINFO\nMAILB\nWKS\nNULL\nA6\nNXT\nKEY\nSIG\nRP\nX25\nISDN\nRT\nNSAP\nNSAP-PTR\nPX\nAPL\nSINK\nGPOS\nUNSPEC\nSPF\nNINFO\nRKEY\nTALINK\nNID\nL32\nL64\nLP\nDOA' > __dns.records
     printf "\n\e[1;32m ---[ Realizando o scan de DNS ]---\e[0m\n\n"
     
-    for __dnsrecord__ in $(cat __dns.records);do
+    for __dnsrecord__ in $(echo "$(< __dns.records)"); do #cat __dns.records);do
       host -t $__dnsrecord__ "$1" | grep -iEv 'has no|SERVFAIL' 2>/dev/null
     done
     rm -f __dns.records
@@ -227,10 +227,12 @@ elif [[ ! -z "$*" ]] || ! [[ "$*" =~ [A-Za-z] ]]; then
   parallel -j200 STATUS :::: url >> resp 2>/dev/null
 
   # Tirando duplicadas usando anew e fazendo ajustes
-  cat resp | anew > resp-"$1"
+  #cat resp | anew > resp-"$1"
+  echo "$(< resp)" > resp-"$1"
   rm resp
   mv url url-"$1"
-  cat url-"$1" | anew > urls-"$1"
+  #cat url-"$1" | anew > urls-"$1"
+  echo "$(< url-$1)" | anew > urls-"$1"
   rm url-"$1"
 
   # Contagem de número de linhas do arquivo com os status codes
